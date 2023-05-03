@@ -2,25 +2,22 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Illuminate\Database\Eloquent\Model;
 use Spatie\Permission\Traits\HasRoles;
 use App\Models\RoleHasPermission;
 use App\Models\ModelHasRole;
-use App\Models\ModelHasPermission;
 use App\Models\Role;
 use App\Models\Permission;
+use App\Models\User;
 
-
-
-class User extends Authenticatable implements MustVerifyEmail
+class ModelHasPermission extends Model
 {
-    use HasApiTokens, HasFactory, Notifiable, HasRoles;
+    use HasApiTokens, HasFactory, Notifiable,HasRoles;
 
     /**
      * The attributes that are mass assignable.
@@ -28,10 +25,8 @@ class User extends Authenticatable implements MustVerifyEmail
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
-        'email',
-        'password',
-        'status'
+        'permission_id',
+        'model_id'
     ];
 
     /**
@@ -40,8 +35,7 @@ class User extends Authenticatable implements MustVerifyEmail
      * @var array<int, string>
      */
     protected $hidden = [
-        'password',
-        'remember_token',
+
     ];
 
     /**
@@ -49,7 +43,10 @@ class User extends Authenticatable implements MustVerifyEmail
      *
      * @var array<string, string>
      */
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-    ];
+   /**
+     * Verifica si el usuario está deshabilitado.
+     *
+     * @return bool
+     */
+
 }
