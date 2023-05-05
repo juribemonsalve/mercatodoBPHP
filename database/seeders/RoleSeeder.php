@@ -2,10 +2,9 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
 
 class RoleSeeder extends Seeder
 {
@@ -22,9 +21,8 @@ class RoleSeeder extends Seeder
         $admin = Role::create(['name'=>'admin']);
         $standard = Role::create(['name'=>'standard']);
         //admin
-        Permission::create(['name'=>'admin.index'])->syncRoles([$admin]);
+        Permission::create(['name'=>'user.index'])->syncRoles([$admin]);
         //standard
         Permission::create(['name'=>'dashboard'])->syncRoles([$standard]);
-
     }
 }

@@ -2,118 +2,69 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\User;
-use App\Http\Requests\StoreUserRequest;
-use GrahamCampbell\ResultType\Success;
-use Ramsey\Uuid\Type\Integer;
-use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Auth;
-use Spatie\Permission\Models\Permission;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
-use Illuminate\Database\Seeder;
+use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
-use App\Http\Requests\ProfileUpdateRequest;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Illuminate\Http\RedirectResponse;
-use Illuminate\Support\Facades\Redirect;
-
 
 class UserController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
         //
+
+        $roles = Role::all();
         $users = User::all();
-        return view('admin.index', ['users' => $users]);
+        return view('user.index', compact('users'));
     }
 
-      /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \App\Http\Requests\StoreUserRequest  $request
-     * @return \Illuminate\Http\Response
-       *
-     */
     public function create()
     {
         //
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         ////
-        $request-> validate([
+        ///
+        $request->validate([
             'name'=>'required',
             'email'=>'required',
-            'password'=>'required',
+            'email_verified_at' => now(),
+            'password' => 'sometimes|required|string|min:8|regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/|',
             'status' => 'required|in:active,disabled',
 
         ]);
+
         $user = new User($request->input());
         $user->save();
-        return redirect('admin');
+        return redirect('user');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\User  $users
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
         //
+        $user = User::find($id);
+        return view('user.editUser', compact('user'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\User  $users
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id)
     {
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id)
     {
         //
         $user = User::find($id);
         $user->fill($request->input())->saveOrFail();
-        return redirect('admin');
+        return redirect('user');
     }
 
-   /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\User  $users
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
-        //
-        $user = User::find($id);
+        $user = User::findOrFail($id);
         $user->delete();
-        return redirect()->route('admin.index');
+
+        return redirect()->back()->with('success', 'El usuario ha sido eliminado exitosamente.');
     }
 }

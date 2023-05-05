@@ -4,20 +4,16 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
-use App\Models\RoleHasPermission;
-use App\Models\ModelHasPermission;
-use App\Models\Role;
-use App\Models\Permission;
-use App\Models\User;
 
 class ModelHasRole extends Model
 {
-    use HasApiTokens, HasFactory, Notifiable,HasRoles;
+    use HasApiTokens;
+    use HasFactory;
+    use Notifiable;
+    use HasRoles;
 
     /**
      * The attributes that are mass assignable.
@@ -26,7 +22,7 @@ class ModelHasRole extends Model
      */
     protected $fillable = [
         'role_id',
-        'model_id'
+        'model_id',
 
     ];
 
@@ -44,10 +40,9 @@ class ModelHasRole extends Model
      *
      * @var array<string, string>
      */
-   /**
-     * Verifica si el usuario está deshabilitado.
-     *
-     * @return bool
-     */
-
+    /**
+      * Verifica si el usuario está deshabilitado.
+      *
+      * @return bool
+      */
 }

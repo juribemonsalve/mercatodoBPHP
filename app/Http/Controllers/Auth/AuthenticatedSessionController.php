@@ -20,7 +20,6 @@ class AuthenticatedSessionController extends Controller
         return view('auth.login', [
         'status'=> session('status'),
     ]);
-
     }
 
     /**

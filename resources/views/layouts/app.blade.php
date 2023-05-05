@@ -32,5 +32,9 @@
                 {{ $slot }}
             </main>
         </div>
+        <div class="container-fluid">
+            @yield('')
+        </div>
+
     </body>
 </html>

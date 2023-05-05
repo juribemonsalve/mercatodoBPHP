@@ -17,13 +17,12 @@ class CheckBanned
      */
     public function handle(Request $request, Closure $next)
     {
-        if(auth()->check() && (auth()->user()->status == 'disabled')){
+        if (auth()->check() && (auth()->user()->status == 'disabled')) {
             Auth::logout();
 
             $request->session()->invalidate();
             $request->session()->regenerateToken();
-            return redirect()->route('login')->with('status','User Disable');
-
+            return redirect()->route('login')->with('status', 'User Disable');
         }
         return $next($request);
     }
