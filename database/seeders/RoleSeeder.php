@@ -18,11 +18,13 @@ class RoleSeeder extends Seeder
         /*Admin => todo
         standar => dashboard
         */
-        $admin = Role::create(['name'=>'admin']);
-        $standard = Role::create(['name'=>'standard']);
+        $admin = Role::create(['name'=>'Admin']);
+        $client = Role::create(['name'=>'Client']);
         //admin
         Permission::create(['name'=>'user.index'])->syncRoles([$admin]);
+        Permission::create(['name'=>'category.index'])->syncRoles([$admin]);
+        Permission::create(['name'=>'adminproduct.index'])->syncRoles([$admin]);
         //standard
-        Permission::create(['name'=>'dashboard'])->syncRoles([$standard]);
+        Permission::create(['name'=>'dashboard'])->syncRoles([$client]);
     }
 }

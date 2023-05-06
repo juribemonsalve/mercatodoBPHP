@@ -26,6 +26,23 @@
                     </div>
                 @endcan
 
+                @can('category.index')
+                    <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                        <x-nav-link :href="route('category.index')" :active="request()->routeIs('category.index')">
+                            {{ __('Categories') }}
+                        </x-nav-link>
+                    </div>
+                @endcan
+
+                @can('adminproduct.index')
+                    <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                        <x-nav-link :href="route('adminproduct.index')" :active="request()->routeIs('adminproduct.index')">
+                            {{ __('Admin Products') }}
+                        </x-nav-link>
+                    </div>
+                @endcan
+
+
                                 <!-- Navigation Links -->
 
             </div>

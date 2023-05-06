@@ -19,6 +19,8 @@
         <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css" rel="stylesheet">
 
         <title>{{ config('app.name', 'Laravel') }}</title>
+        <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css">
 
         <!-- Fonts -->
 
@@ -41,11 +43,16 @@
                 </header>
             @endif
             <!-- Page Content -->
-            <section class="content">
 
-                @yield('content')
-
-            </section>
+            <main>
+                    <div class="container-fluid">
+                      <div class="row">
+                        <div class="col">
+                          @yield('content')
+                        </div>
+                      </div>
+                    </div>
+            </main>
         </div>
     </body>
 </html>
