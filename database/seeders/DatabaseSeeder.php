@@ -3,7 +3,6 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
-use App\Models\Products;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Database\Seeder;
@@ -23,8 +22,7 @@ class DatabaseSeeder extends Seeder
         //Usuarios base
         $this->call(UserSeeder::class);
         $this->call(CategorySeeder::class);
-
-        Products::factory()->count(10)->create();
+        $this->call(ProductSeeder::class);
 
         User::factory(10)->create()->each(
             function ($user) {

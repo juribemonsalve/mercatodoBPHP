@@ -40,7 +40,7 @@
                                                   <td class="px-2 py-2 text-sm text-center text-gray-900 w-1/6">{{ $i++ }}</td>
                                                   <td class="px-2 py-2 text-sm text-center text-gray-900 w-1/6">{{ $product->name }}</td>
                                                   <td class="px-2 py-2 text-sm text-center text-gray-900 w-1/3 whitespace-nowrap">{{ $product->description }}</td>
-                                                  <td class="px-2 py-2 text-sm text-center text-gray-900 w-1/6">{{ $product->price }}</td>
+                                                  <td class="px-2 py-2 text-sm text-center text-gray-900 w-1/6">{{ number_format($product->price, 0, ',', '.') }}</td>
                                                   <td class="px-2 py-2 text-sm text-center text-gray-900 w-1/6">{{ $product->quantity }}</td>
                                                   <td   class="px-2 py-2 text-sm text-center text-gray-900 w-1/6">
                                                         @foreach($categories as $category)
@@ -104,7 +104,7 @@
                                                           <div class="mb-4">
                                                                 <label for="price" class="block text-sm font-bold text-black">Precio</label>
                                                                 <div class="input-group">
-                                                                    <input id="price" name="price" type="number" value="{{ $product->price }}" min="0" class="form-input mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring focus:ring-green-500 focus:border-green-500" placeholder="Precio" required>
+                                                                    <input id="price" name="price" type="number" value="{{ number_format($product->price, 0, ',', '.') }}" min="0" class="form-input mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring focus:ring-green-500 focus:border-green-500" placeholder="Precio" required>
                                                                 </div>
                                                           </div>
 
@@ -183,7 +183,7 @@
                                             <label for="price" class="block text-sm font-bold text-black">Precio</label>
                                             <div class="input-group">
                                                 <span class="input-group-text"><i class="fas fa-dollar-sign"></i></span>
-                                                <input type="number" name="price" class="form-control rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500" maxlength="50" placeholder="Nombre" required>
+                                                <input type="number" name="price" class="form-control rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500" maxlength="50" placeholder="Precio" value="{{ number_format($product->price, 2, ',', '.') }}" required>
                                             </div>
                                         </div>
 
@@ -191,7 +191,7 @@
                                             <label for="quantity" class="block text-sm font-bold text-black">Cantidad</label>
                                             <div class="input-group">
                                                 <span class="input-group-text"><i class="far fa-clipboard"></i></span>
-                                                <input type="number" name="quantity" class="form-control rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500" maxlength="" placeholder="Descripción" required>
+                                                <input type="number" name="quantity" class="form-control rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500" maxlength="" placeholder="Cantidad" required>
                                             </div>
                                         </div>
 

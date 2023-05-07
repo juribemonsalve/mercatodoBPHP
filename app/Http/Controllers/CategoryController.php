@@ -1,13 +1,12 @@
 <?php
 
 namespace App\Http\Controllers;
-use Illuminate\Database\QueryException;
+
 use App\Models\Categories;
-use App\Models\Products;
+use App\Models\Product;
+use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
-use Illuminate\Support\Facades\Session;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class CategoryController extends Controller
 {
@@ -16,7 +15,7 @@ class CategoryController extends Controller
         //
 
         $roles = Role::all();
-        $products = Products::all();
+        $products = Product::all();
         $categories = Categories::all();
         return view('category.index', compact('categories'));
     }
@@ -63,7 +62,6 @@ class CategoryController extends Controller
 
     public function destroy($id)
     {
-
         try {
             $category = Categories::findOrFail($id);
 

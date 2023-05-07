@@ -7,9 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
-use App\Models\Categories;
 
-class Products extends Model
+class Product extends Model
 {
     use HasApiTokens;
     use HasFactory;
@@ -28,6 +27,7 @@ class Products extends Model
         'quantity',
         'category_id',
         'status',
+        'cover_img',
 
     ];
 

@@ -35,7 +35,7 @@
                                                 <tr>
                                                   <td class="px-2 py-2 text-sm text-center text-gray-900 w-1/6">{{ $i++ }}</td>
                                                   <td class="px-2 py-2 text-sm text-center text-gray-900 w-1/6">{{ $category->name }}</td>
-                                                  <td class="px-2 py-2 text-sm text-center text-gray-900 w-1/3 whitespace-nowrap">{{ $category->description }}</td>
+                                                  <td class="px-2 py-2 text-sm text-center text-gray-900 w-1/3 whitespace-nowrap">{{ $category->description}}</td>
                                                   <td class="px-1 py-1 text-sm font-medium text-center">
                                                     <a href="#" class="text-blue-400 hover:text-orange-500 font-extrabold" data-bs-toggle="modal" data-bs-target="#modalEdit{{ $category->id }}">
                                                       <i class="fa-solid fa-edit"></i>Editar
@@ -91,7 +91,7 @@
                                     <div class="mb-4">
                                       <label for="description" class="block text-sm font-bold text-black">Descripción</label>
                                       <div class="input-group">
-                                        <input id="description" name="description" type="text" value="{{ $category->description }}" maxlength="50" class="form-input mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring focus:ring-green-500 focus:border-green-500" placeholder="Descripción" required>
+                                        <input id="description" name="description" type="text" value="{{ $category->description }}" maxlength="255" class="form-input mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring focus:ring-green-500 focus:border-green-500" placeholder="Descripción" required>
                                       </div>
                                     </div>
                                     <div class="mt-8">
@@ -131,7 +131,7 @@
                                             <label for="description" class="block text-sm font-bold text-black">Descripción</label>
                                             <div class="input-group">
                                                 <span class="input-group-text"><i class="fas fa-pencil-alt"></i></span>
-                                                <input type="text" name="description" class="form-control rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500" maxlength="50" placeholder="Descripción" required>
+                                                <input type="text" name="description" class="form-control rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500" maxlength="255" placeholder="Descripción" required>
                                             </div>
                                         </div>
                                         <div class="mt-8">

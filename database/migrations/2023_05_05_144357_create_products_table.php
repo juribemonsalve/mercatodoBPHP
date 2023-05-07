@@ -14,9 +14,10 @@ return new class() extends Migration {
     {
         Schema::create('products', function (Blueprint $table) {
             $table->id();
+            $table->string('cover_img')->nullable();
             $table->string('name', 100);
             $table->tinyText('description');
-            $table->unsignedBigInteger('price');
+            $table->unsignedFloat('price');
             $table->unsignedBigInteger('quantity')->default(0);
             $table->unsignedBigInteger('category_id');
             $table->enum('status', ['active', 'disabled'])->default('active');

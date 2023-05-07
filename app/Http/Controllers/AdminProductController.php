@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Categories;
-use App\Models\Products;
+use App\Models\Product;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
 
@@ -14,7 +14,7 @@ class AdminProductController extends Controller
         //
 
         $roles = Role::all();
-        $products = Products::all();
+        $products = Product::all();
         $categories = Categories::all();
         return view('adminproduct.index', compact('products', 'categories'));
     }
@@ -45,7 +45,7 @@ class AdminProductController extends Controller
             'status.in' => 'El campo Estado Producto debe ser "active" o "disabled".',
         ]);
 
-        $product = new Products($request->input());
+        $product = new Product($request->input());
         $product->saveOrFail();
 
         return redirect(route('adminproduct.index'));
@@ -54,7 +54,7 @@ class AdminProductController extends Controller
     public function show($id)
     {
         //
-        $product = Products::find($id);
+        $product = Product::find($id);
         return view('adminproduct.index', compact('product'));
     }
 
@@ -66,7 +66,7 @@ class AdminProductController extends Controller
     public function update(Request $request, $id)
     {
         //
-        $product = Products::find($id);
+        $product = Product::find($id);
         $categories = Categories::all();
         $product->fill($request->input())->saveOrFail();
         return redirect(route('adminproduct.index'));
@@ -74,7 +74,7 @@ class AdminProductController extends Controller
 
     public function destroy($id)
     {
-        $product = Products::findOrFail($id);
+        $product = Product::findOrFail($id);
         $product->delete();
 
         return redirect()->back()->with('success', 'El producto se ha sido eliminado exitosamente.');
