@@ -72,18 +72,22 @@ class CategoryController extends Controller
 
     public function destroy($id)
     {
-        try {
-            $category = Categories::findOrFail($id);
 
-            if ($category->products()->exists()) {
-                return redirect()->back()->withErrors(['error' => 'No es posible eliminar la categoría porque existen productos asociados.']);
+            try {
+                $products = Product::where('category_id', $id)->exists();
+                $category = Categories::findOrFail($id);
+
+                if ($products) {
+                    return redirect()->back()->withErrors(['error' => 'No es posible eliminar la categoría porque existen productos asociados.']);
+                } else {
+                    $category->delete();
+                    return redirect()->back()->with('success', 'La categoría ha sido eliminada exitosamente.');
+                }
+            } catch (ModelNotFoundException $e) {
+                return redirect()->back()->withErrors(['error' => 'No se encontró la categoría.']);
+            } catch (QueryException $e) {
+                return redirect()->back()->withErrors(['error' => 'Se produjo un error al eliminar la categoría.']);
             }
 
-            $category->delete();
-
-            return redirect()->back()->with('success', 'La categoría ha sido eliminada exitosamente.');
-        } catch (QueryException $e) {
-            return redirect()->back()->withErrors(['error' => 'No es posible eliminar la categoría porque existen productos asociados.']);
-        }
     }
 }
