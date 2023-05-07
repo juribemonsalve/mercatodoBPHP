@@ -16,6 +16,26 @@
                         </div>
                     </div>
 
+                    <div class="flex flex-col my-1 w-full">
+                      <div class="mx-auto">
+                        <div class="flex items-center justify-between my-2 w-full">
+                          <form action="{{ route('user.index') }}" method="get">
+                            <div class="flex items-center w-full">
+                              <input type="text" class="w-full px-4 py-2 border border-gray-300 rounded-l-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" name="texto" value="{{$texto}}" placeholder="Nombre o Email">
+                              <button type="submit" class="flex items-center justify-center px-4 py-2 border border-transparent rounded-r-md bg-blue-500 hover:bg-blue-600 text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                                <svg class="w-4 h-4 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 18h4m-2-2v-4m2 4v4m-4-4H6a4 4 0 1 1 0-8h4a4 4 0 1 1 0 8z"></path>
+                                </svg>
+                                Buscar
+                              </button>
+                            </div>
+                          </form>
+                        </div>
+                      </div>
+                    </div>
+
+
+
                     <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
                             <div class="py-2 align-middle inline-block w-full sm:px-6 lg:px-8">
                                 <div class="shadow overflow-hidden border-b border-orange-400 sm:rounded-lg">
@@ -31,11 +51,16 @@
                                                     </tr>
                                             </thead>
                                             <tbody class="bg-white divide-y divide-gray-200">
+                                                @if(count($users)<=0)
+                                                    <tr>
+                                                        <td colspan="8"> No hay resultados</td>
+                                                    </tr>
+                                                @else
                                                 @php $i=1; @endphp
                                                  @foreach ($users as $user)
                                                     <tr>
                                                         <td class="px-2 py-2 text-sm text-center text-gray-900 w-1/6">
-                                                            {{ $i++ }}
+                                                            {{ $user->id}}
                                                         </td>
                                                         <td class="px-2 py-2 text-sm text-center text-gray-900 w-1/6">
                                                             {{ $user->name }}
@@ -63,8 +88,10 @@
                                                         </td>
                                                     </tr>
                                                 @endforeach
+                                                @endif
                                             </tbody>
                                         </table>
+                                        {{$users->links()}}
                                      </div>
                                 </div>
                             </div>

@@ -19,7 +19,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', IndexComponent::class);
+Route::get('/', IndexComponent::class)->name('inicio');
 
 Route::get('/dashboard', function () {
     return view('dashboard');

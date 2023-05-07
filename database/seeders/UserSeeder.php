@@ -32,5 +32,11 @@ class UserSeeder extends Seeder
           'status'=> 'active',
           'remember_token' => Str::random(10),
         ])->assignRole('Client');
+
+        User::factory(400)->create()->each(
+            function ($user) {
+                $user->assignRole('Client');
+            }
+        );
     }
 }

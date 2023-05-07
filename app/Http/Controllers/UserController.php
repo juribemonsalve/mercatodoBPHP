@@ -4,17 +4,26 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Spatie\Permission\Models\Role;
 
 class UserController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         //
 
         $roles = Role::all();
-        $users = User::all();
-        return view('user.index', compact('users'));
+        $texto = trim($request->get('texto'));
+
+        $users = DB::table('users')
+            ->select('id', 'name', 'email', 'password', 'status')
+            ->where('name', 'LIKE', '%' . $texto . '%')
+            ->orWhere('email', 'LIKE', '%' . $texto . '%')
+            ->orderBy('id', 'asc')
+            ->paginate(10);
+
+        return view('user.index', compact('users', 'texto'));
     }
 
     public function create()

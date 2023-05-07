@@ -16,6 +16,29 @@
                             <i class="fa-solid fa-circle-plus"></i>{{ __('Añadir Productos') }}
                         </button>
                     </div>
+
+
+
+
+                    <div class="flex flex-col my-1 w-full">
+                      <div class="mx-auto">
+                        <div class="flex items-center justify-between my-2 w-full">
+                          <form action="{{ route('adminproduct.index') }}" method="get">
+                            <div class="flex items-center w-full">
+                              <input type="text" class="w-full px-4 py-2 border border-gray-300 rounded-l-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" name="texto" value="{{$texto}}" placeholder="Nombre o Descripción">
+                              <button type="submit" class="flex items-center justify-center px-4 py-2 border border-transparent rounded-r-md bg-blue-500 hover:bg-blue-600 text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                                <svg class="w-4 h-4 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 18h4m-2-2v-4m2 4v4m-4-4H6a4 4 0 1 1 0-8h4a4 4 0 1 1 0 8z"></path>
+                                </svg>
+                                Buscar
+                              </button>
+                            </div>
+                          </form>
+                        </div>
+                      </div>
+                    </div>
+
+
                     <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
                         <div class="py-2 align-middle inline-block w-full sm:px-6 lg:px-8">
                             <div class="shadow overflow-hidden border-b border-orange-400 sm:rounded-lg">
@@ -34,10 +57,18 @@
                                             </tr>
                                         </thead>
                                         <tbody class="bg-white divide-y divide-gray-200">
+                                            @if(count($products)<=0)
+                                                <tr>
+                                                    <td colspan="8"> No hay resultados</td>
+                                                </tr>
+                                            @else
+
+
+
                                             @php $i=1; @endphp
                                              @foreach ($products as $product)
                                                 <tr>
-                                                  <td class="px-2 py-2 text-sm text-center text-gray-900 w-1/6">{{ $i++ }}</td>
+                                                  <td class="px-2 py-2 text-sm text-center text-gray-900 w-1/6">{{ $product->id }}</td>
                                                   <td class="px-2 py-2 text-sm text-center text-gray-900 w-1/6">{{ $product->name }}</td>
                                                   <td class="px-2 py-2 text-sm text-center text-gray-900 w-1/3 whitespace-nowrap">{{ $product->description }}</td>
                                                   <td class="px-2 py-2 text-sm text-center text-gray-900 w-1/6">{{ number_format($product->price, 0, ',', '.') }}</td>
@@ -65,12 +96,15 @@
                                                   </td>
                                                 </tr>
                                             @endforeach
+                                            @endif
                                         </tbody>
                                     </table>
+                                    {{$products->links()}}
                                 </div>
                             </div>
                         </div>
                     </div>
+
 
 
                     @foreach ($products  as $product)
@@ -79,7 +113,7 @@
                                     <div class="modal-content">
                                           <div class="bg-gray-300 rounded-lg py-8 px-4 shadow-sm sm:px-10">
                                                 <div class="modal-header">
-                                                  <h5 class="text-2xl font-bold text-black">Editar Usuario</h5>
+                                                  <h5 class="text-2xl font-bold text-black">Editar Producto</h5>
                                                   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                 </div>
                                               <div class="modal-body">
@@ -104,7 +138,7 @@
                                                           <div class="mb-4">
                                                                 <label for="price" class="block text-sm font-bold text-black">Precio</label>
                                                                 <div class="input-group">
-                                                                    <input id="price" name="price" type="number" value="{{ number_format($product->price, 0, ',', '.') }}" min="0" class="form-input mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring focus:ring-green-500 focus:border-green-500" placeholder="Precio" required>
+                                                                    <input id="price" name="price" type="number" value="{{ $product->price }}" min="0" class="form-input mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring focus:ring-green-500 focus:border-green-500" placeholder="Precio" required>
                                                                 </div>
                                                           </div>
 
@@ -157,7 +191,7 @@
                         <div class="modal-dialog">
                             <div class="modal-content bg-gray-300 rounded-lg shadow">
                                 <div class="modal-header">
-                                    <h5 class="text-2xl font-bold text-black" id="titulo_modal">Nueva Categoria</h5>
+                                    <h5 class="text-2xl font-bold text-black" id="titulo_modal">Nuevo Producto</h5>
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body px-4 py-6">
@@ -183,7 +217,7 @@
                                             <label for="price" class="block text-sm font-bold text-black">Precio</label>
                                             <div class="input-group">
                                                 <span class="input-group-text"><i class="fas fa-dollar-sign"></i></span>
-                                                <input type="number" name="price" class="form-control rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500" maxlength="50" placeholder="Precio" value="{{ number_format($product->price, 2, ',', '.') }}" required>
+                                                <input type="number" name="price" class="form-control rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500" maxlength="50" placeholder="Precio" required>
                                             </div>
                                         </div>
 

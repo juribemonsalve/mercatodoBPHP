@@ -6,18 +6,28 @@ use App\Models\Categories;
 use App\Models\Product;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Spatie\Permission\Models\Role;
 
 class CategoryController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         //
 
         $roles = Role::all();
         $products = Product::all();
-        $categories = Categories::all();
-        return view('category.index', compact('categories'));
+
+        $texto = trim($request->get('texto'));
+
+        $categories = DB::table('categories')
+            ->select('id', 'name', 'description')
+            ->where('name', 'LIKE', '%' . $texto . '%')
+            ->orWhere('description', 'LIKE', '%' . $texto . '%')
+            ->orderBy('id', 'asc')
+            ->paginate(10);
+
+        return view('category.index', compact('categories', 'texto'));
     }
 
     public function create()

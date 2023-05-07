@@ -10,11 +10,26 @@
       </div>
     </div>
 
+    <form action="{{route('inicio')}}" method="get">
+        <div class="form-row align-items-center">
+            <div class="col-sm-4">
+                <input type="text" class="form-control" name="texto" value="{{$texto}}">
+            </div>
+            <div class="col-auto my-1">
+                <input type="submit" class="btn btn-primary" value="Buscar">
+            </div>
+        </div>
+    </form>
+
+
+
+
 
     <div class="flex flex-wrap -mx-4">
 
         @foreach($products as $product)
             <div class="w-full md:w-1/3 px-4 mb-4">
+
                 <div class="bg-white rounded-lg shadow-lg hover:scale-105">
                     <img class="w-full h-64 object-cover object-center " src="{{ $product->cover_img }}" alt="Card image">
                     <div class="p-4">

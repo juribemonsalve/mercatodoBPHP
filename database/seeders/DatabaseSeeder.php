@@ -24,11 +24,6 @@ class DatabaseSeeder extends Seeder
         $this->call(CategorySeeder::class);
         $this->call(ProductSeeder::class);
 
-        User::factory(10)->create()->each(
-            function ($user) {
-                $user->assignRole('Client');
-            }
-        );
         // \App\Models\User::factory(10)->create();
 
         // \App\Models\User::factory()->create([

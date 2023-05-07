@@ -5,18 +5,25 @@ namespace App\Http\Controllers;
 use App\Models\Categories;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Spatie\Permission\Models\Role;
 
 class AdminProductController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         //
-
         $roles = Role::all();
-        $products = Product::all();
         $categories = Categories::all();
-        return view('adminproduct.index', compact('products', 'categories'));
+        $texto = trim($request->get('texto'));
+
+        $products = DB::table('products')
+            ->select('id', 'name', 'description', 'price', 'quantity', 'category_id', 'status', 'cover_img', )
+            ->where('name', 'LIKE', '%' . $texto . '%')
+            ->orWhere('description', 'LIKE', '%' . $texto . '%')
+            ->orderBy('id', 'asc')
+            ->paginate(10);
+        return view('adminproduct.index', compact('products', 'categories', 'texto'));
     }
 
     public function create()
