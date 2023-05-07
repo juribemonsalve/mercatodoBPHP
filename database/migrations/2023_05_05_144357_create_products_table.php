@@ -22,7 +22,7 @@ return new class() extends Migration {
             $table->unsignedBigInteger('category_id');
             $table->enum('status', ['active', 'disabled'])->default('active');
             $table->softDeletes();
-            $ta'category_id')->references('id')->on('categories')->onUpdate('cascade');
+            $table->foreign('category_id')->references('id')->on('categories')->onUpdate('cascade');
             $table->timestamps();
         });
     }

@@ -42,6 +42,10 @@ class UserController extends Controller
             'password' => 'sometimes|required|string|min:8|regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/|',
             'status' => 'required|in:active,disabled',
 
+        ], [
+            'name.required' => 'El campo Nombre es obligatorio.',
+            'email.required' => 'El campo Email es obligatorio.',
+            'status.required' => 'El campo Status es obligatorio.',
         ]);
 
         $user = new User($request->input());

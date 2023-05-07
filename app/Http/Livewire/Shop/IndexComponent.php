@@ -14,13 +14,13 @@ class IndexComponent extends Component
         $texto = trim($request->get('texto'));
 
         $products = DB::table('products')
-            ->select('name', 'description', 'price')
+            ->select('id', 'name', 'description', 'price', 'quantity', 'category_id', 'status', 'cover_img', )
             ->where('name', 'LIKE', '%' . $texto . '%')
             ->orWhere('description', 'LIKE', '%' . $texto . '%')
-            ->orderBy('name', 'asc')
+            ->orderBy('id', 'asc')
             ->paginate(10);
 
-        $products = Product::where('status', 'active')->get();
+        //$products = Product::where('status', 'active')->get();
         return view('livewire.shop.index-component', compact('products', 'texto'))
             ->extends('template.admin')
             ->section('content');

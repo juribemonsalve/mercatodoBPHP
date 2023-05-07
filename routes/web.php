@@ -18,12 +18,7 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-
 Route::get('/', IndexComponent::class)->name('inicio');
-
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::get('/login', function () {
     return view('login');
@@ -32,10 +27,6 @@ Route::get('/login', function () {
 Route::post('/login', 'Auth\authenticate@login')->middleware('CheckBanned');
 
 Route::middleware('auth')->group(function () {
-    /*Route::middleware(['can:user.index'])->group(function () {
-            Route::resource('user', UserController::class);
-        });*/
-
     Route::middleware(['can:user.index'])->group(function () {
         Route::resource('user', UserController::class);
     })->name('user.index');
@@ -47,8 +38,6 @@ Route::middleware('auth')->group(function () {
     Route::middleware(['can:adminproduct.index'])->group(function () {
         Route::resource('adminproduct', AdminProductController::class);
     })->name('adminproduct.index');
-
-    /*Route::resource('user', App\Http\Controllers\UserController::class);*/
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
