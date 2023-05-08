@@ -2,18 +2,20 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CategoryRequest;
 use App\Models\Categories;
 use App\Models\Product;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-
+use Spatie\Permission\Models\Role;
 
 class CategoryController extends Controller
 {
     public function index(Request $request)
     {
         //
+        $roles = Role::all();
         $products = Product::all();
         $texto = trim($request->get('texto'));
 
@@ -32,20 +34,8 @@ class CategoryController extends Controller
         //
     }
 
-    public function store(Request $request)
+    public function store(CategoryRequest $request)
     {
-        ////
-        ///
-        $request->validate([
-            'name'=>'required',
-            'description'=>'required',
-
-        ], [
-            'name.required' => 'El campo Nombre es obligatorio.',
-            'description.required' => 'El campo Descripción es obligatorio.',
-        ]);
-
-
         $category = new Categories($request->input());
         $category->save();
         return redirect('category');
@@ -54,7 +44,6 @@ class CategoryController extends Controller
     public function show($id)
     {
         //
-
         $category = Categories::find($id);
         return view('category.editCategory', compact('category'));
     }
@@ -64,18 +53,9 @@ class CategoryController extends Controller
         //
     }
 
-    public function update(Request $request, $id)
+    public function update(CategoryRequest $request, $id)
     {
         //
-        $request->validate([
-            'name'=>'required',
-            'description'=>'required',
-
-        ], [
-            'name.required' => 'El campo Nombre es obligatorio.',
-            'description.required' => 'El campo Descripción es obligatorio.',
-        ]);
-
         $category = Categories::find($id);
         $category->fill($request->input())->saveOrFail();
         return redirect('category');

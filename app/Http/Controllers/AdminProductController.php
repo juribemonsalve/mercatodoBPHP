@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\AdminProductRequest;
 use App\Models\Categories;
 use App\Models\Product;
 use Illuminate\Http\Request;
@@ -33,25 +34,8 @@ class AdminProductController extends Controller
         return view('product', compact('categories'));
     }
 
-    public function store(Request $request)
+    public function store(AdminProductRequest $request)
     {
-        $request->validate([
-            'name' => 'required',
-            'description' => 'required',
-            'price' => 'required',
-            'quantity' => 'required',
-            'category_id' => 'required',
-            'status' => 'required|in:active,disabled',
-        ], [
-            'name.required' => 'El campo Nombre es obligatorio.',
-            'description.required' => 'El campo Descripción es obligatorio.',
-            'price.required' => 'El campo Precio es obligatorio.',
-            'quantity.required' => 'El campo Cantidad es obligatorio.',
-            'category_id.required' => 'El campo Categoría Producto es obligatorio.',
-            'status.required' => 'El campo Estado Producto es obligatorio.',
-            'status.in' => 'El campo Estado Producto debe ser "active" o "disabled".',
-        ]);
-
         $product = new Product($request->input());
         $product->saveOrFail();
 
@@ -70,26 +54,8 @@ class AdminProductController extends Controller
         //
     }
 
-    public function update(Request $request, $id)
+    public function update(AdminProductRequest $request, $id)
     {
-        //
-        $request->validate([
-            'name' => 'required',
-            'description' => 'required',
-            'price' => 'required',
-            'quantity' => 'required',
-            'category_id' => 'required',
-            'status' => 'required|in:active,disabled',
-        ], [
-            'name.required' => 'El campo Nombre es obligatorio.',
-            'description.required' => 'El campo Descripción es obligatorio.',
-            'price.required' => 'El campo Precio es obligatorio.',
-            'quantity.required' => 'El campo Cantidad es obligatorio.',
-            'category_id.required' => 'El campo Categoría Producto es obligatorio.',
-            'status.required' => 'El campo Estado Producto es obligatorio.',
-            'status.in' => 'El campo Estado Producto debe ser "active" o "disabled".',
-        ]);
-
         $product = Product::find($id);
         $categories = Categories::all();
         $product->fill($request->input())->saveOrFail();

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UserRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -31,23 +32,8 @@ class UserController extends Controller
         //
     }
 
-    public function store(Request $request)
+    public function store(UserRequest $request)
     {
-        ////
-        ///
-        $request->validate([
-            'name'=>'required',
-            'email'=>'required',
-            'email_verified_at' => now(),
-            'password' => 'sometimes|required|string|min:8|regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/|',
-            'status' => 'required|in:active,disabled',
-
-        ], [
-            'name.required' => 'El campo Nombre es obligatorio.',
-            'email.required' => 'El campo Email es obligatorio.',
-            'status.required' => 'El campo Status es obligatorio.',
-        ]);
-
         $user = new User($request->input());
         $user->save();
         return redirect('user');
@@ -65,7 +51,7 @@ class UserController extends Controller
         //
     }
 
-    public function update(Request $request, $id)
+    public function update(UserRequest $request, $id)
     {
         //
         $user = User::find($id);

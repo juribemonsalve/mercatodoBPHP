@@ -116,13 +116,13 @@
                                     <div class="mb-4">
                                       <label for="name" class="block text-sm font-bold text-black">Nombre</label>
                                       <div class="input-group">
-                                        <input id="name" name="name" type="text" value="{{ $category->name }}" maxlength="50" class="form-input mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring focus:ring-green-500 focus:border-green-500" placeholder="Nombre" required>
+                                        <input id="name" name="name" type="text" value="{{ $category->name }}" maxlength="50" class="form-input mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring focus:ring-green-500 focus:border-green-500" placeholder="Nombre">
                                       </div>
                                     </div>
                                     <div class="mb-4">
                                       <label for="description" class="block text-sm font-bold text-black">Descripción</label>
                                       <div class="input-group">
-                                        <input id="description" name="description" type="text" value="{{ $category->description }}" maxlength="255" class="form-input mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring focus:ring-green-500 focus:border-green-500" placeholder="Descripción" required>
+                                        <input id="description" name="description" type="text" value="{{ $category->description }}" maxlength="255" class="form-input mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring focus:ring-green-500 focus:border-green-500" placeholder="Descripción">
                                       </div>
                                     </div>
                                     <div class="mt-8">
@@ -133,6 +133,21 @@
                                         <i class="fa-solid fa-times"></i> Cerrar
                                       </button>
                                     </div>
+                                    @if (session('success'))
+                                        <div class="bg-gray-300 text-green-700 px-4 py-3 rounded relative" role="alert">
+                                            <span class="block sm:inline">{{ session('success') }}</span>
+                                        </div>
+                                    @endif
+
+                                    @if ($errors->any())
+                                        <div class="bg-gray-300 text-red-700 px-4 py-3 rounded relative" role="alert">
+                                            <ul>
+                                                @foreach ($errors->all() as $error)
+                                                    <li>{{ $error }}</li>
+                                                @endforeach
+                                            </ul>
+                                        </div>
+                                    @endif
                                   </form>
                                 </div>
                               </div>
@@ -155,14 +170,14 @@
                                             <label for="name" class="block text-sm font-bold text-black">Nombre</label>
                                             <div class="input-group">
                                                 <span class="input-group-text"><i class="fa-solid fa-user-circle"></i></span>
-                                                <input type="text" name="name" class="form-control rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500" maxlength="50" placeholder="Nombre" required>
+                                                <input type="text" name="name" class="form-control rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500" maxlength="30" placeholder="Nombre">
                                             </div>
                                         </div>
                                         <div class="mb-4">
                                             <label for="description" class="block text-sm font-bold text-black">Descripción</label>
                                             <div class="input-group">
                                                 <span class="input-group-text"><i class="fas fa-pencil-alt"></i></span>
-                                                <input type="text" name="description" class="form-control rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500" maxlength="255" placeholder="Descripción" required>
+                                                <input type="text" name="description" class="form-control rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500" maxlength="255" placeholder="Descripción">
                                             </div>
                                         </div>
                                         <div class="mt-8">
@@ -173,6 +188,21 @@
                                                 <i class="fa-solid fa-times"></i> Cerrar
                                             </button>
                                         </div>
+                                        @if (session('success'))
+                                            <div class="bg-gray-300 text-green-700 px-4 py-3 rounded relative" role="alert">
+                                                <span class="block sm:inline">{{ session('success') }}</span>
+                                            </div>
+                                        @endif
+
+                                        @if ($errors->any())
+                                            <div class="bg-gray-300 text-red-700 px-4 py-3 rounded relative" role="alert">
+                                                <ul>
+                                                    @foreach ($errors->all() as $error)
+                                                        <li>{{ $error }}</li>
+                                                    @endforeach
+                                                </ul>
+                                            </div>
+                                        @endif
                                     </form>
                                 </div>
                             </div>
