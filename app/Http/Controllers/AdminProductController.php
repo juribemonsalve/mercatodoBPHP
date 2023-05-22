@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\AdminProductRequest;
-use App\Models\Categories;
+use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -15,7 +15,7 @@ class AdminProductController extends Controller
     {
         //
         $roles = Role::all();
-        $categories = Categories::all();
+        $categories = Category::all();
         $texto = trim($request->get('texto'));
 
         $products = DB::table('products')
@@ -30,7 +30,7 @@ class AdminProductController extends Controller
     public function create()
     {
         //
-        $categories = Categories::all(); // Obtener todas las categorías disponibles
+        $categories = Category::all(); // Obtener todas las categorías disponibles
         return view('product', compact('categories'));
     }
 
@@ -57,7 +57,7 @@ class AdminProductController extends Controller
     public function update(AdminProductRequest $request, $id)
     {
         $product = Product::find($id);
-        $categories = Categories::all();
+        $categories = Category::all();
         $product->fill($request->input())->saveOrFail();
         return redirect(route('adminproduct.index'));
     }

@@ -2,7 +2,7 @@
 
 namespace Database\Factories;
 
-use App\Models\Categories;
+use App\Models\Category;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -56,7 +56,7 @@ class ProductFactory extends Factory
             'description' => $this->faker->randomElement($descriptions),
             'price' => $this->faker->randomFloat(0, 0, 1000000),
             'quantity' => $this->faker->numberBetween(0, 100),
-            'category_id' => Categories::inRandomOrder()->first()->id,
+            'category_id' => Category::inRandomOrder()->first()->id,
             'status' => $this->faker->randomElement(['active', 'disabled']),
         ];
     }

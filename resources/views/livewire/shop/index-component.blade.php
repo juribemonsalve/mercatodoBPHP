@@ -15,7 +15,7 @@
             <div class="flex items-center justify-between my-2">
                 <form action="{{ route('inicio') }}" method="get" class="w-full">
                     <div class="flex items-center w-full">
-                        <input type="text" class="w-full px-4 py-2 border border-gray-300 rounded-l-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" name="texto" value="{{$texto}}" placeholder="Nombre o Descripción">
+                        <input type="text" class="w-full px-4 py-2 border border-gray-300 rounded-l-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" name="search" value="{{$search}}" placeholder="Nombre o Estado">
                         <button type="submit" class="flex items-center justify-center px-4 py-2 border border-transparent rounded-r-md bg-blue-500 hover:bg-blue-600 text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
                             <svg class="w-4 h-4 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 18h4m-2-2v-4m2 4v4m-4-4H6a4 4 0 1 1 0-8h4a4 4 0 1 1 0 8z"></path>
@@ -66,13 +66,20 @@
                 </div>
             @endforeach
         @endif
-
     </div>
+    @if ($users->total() >= 10)
 
-
-
-    {{$products->links()}}
+        <div class="d-flex justify-content-center mt-4">
+            <div class="bg-transparent rounded-lg p-4">
+                <div class="d-flex align-items-center justify-content-center">
+                    <div class="h4 fw-bold me-2">Paginas:</div>
+                    <div class="ms-2 text-primary">{{ $products->appends(['search' => $search])->links() }}</div>
+                </div>
+            </div>
+        </div>
+    @endif
 </div>
+
 
 <script>
     document.getElementById('search-text').addEventListener('input', function() {

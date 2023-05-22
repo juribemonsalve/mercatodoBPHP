@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\CategoryRequest;
-use App\Models\Categories;
+use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
@@ -17,46 +17,45 @@ class CategoryController extends Controller
         //
         $roles = Role::all();
         $products = Product::all();
-        $texto = trim($request->get('texto'));
+        $search = $request->search;
 
-        $categories = DB::table('categories')
-            ->select('id', 'name', 'description')
-            ->where('name', 'LIKE', '%' . $texto . '%')
-            ->orWhere('description', 'LIKE', '%' . $texto . '%')
+        $categories = Category::where('name', 'LIKE', '%' . $search . '%')
+            ->orWhere('description', 'LIKE', '%' . $search . '%')
             ->orderBy('id', 'asc')
             ->paginate(10);
-
-        return view('category.index', compact('categories', 'texto'));
+        $data = ['categories' => $categories, 'search' => $search];
+        return view('category.index', $data);
     }
 
     public function create()
     {
         //
+
+        return view('category.store_category');
     }
 
     public function store(CategoryRequest $request)
     {
-        $category = new Categories($request->input());
+        $category = new Category($request->input());
         $category->save();
         return redirect('category');
     }
 
     public function show($id)
     {
-        //
-        $category = Categories::find($id);
-        return view('category.editCategory', compact('category'));
+
     }
 
     public function edit($id)
     {
-        //
+        $category = Category::findOrFail($id);
+        return view('category.update_category', compact('category'));
     }
 
     public function update(CategoryRequest $request, $id)
     {
         //
-        $category = Categories::find($id);
+        $category = Category::find($id);
         $category->fill($request->input())->saveOrFail();
         return redirect('category');
     }
@@ -65,7 +64,7 @@ class CategoryController extends Controller
     {
         try {
             $products = Product::where('category_id', $id)->exists();
-            $category = Categories::findOrFail($id);
+            $category = Category::findOrFail($id);
 
             if ($products) {
                 return redirect()->back()->withErrors(['error' => 'No es posible eliminar la categoría porque existen productos asociados.']);

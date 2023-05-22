@@ -17,9 +17,6 @@
                         </button>
                     </div>
 
-
-
-
                     <div class="flex flex-col my-1 w-full">
                       <div class="mx-auto">
                         <div class="flex items-center justify-between my-2 w-full">
@@ -99,10 +96,21 @@
                                             @endif
                                         </tbody>
                                     </table>
-                                    {{$products->links()}}
                                 </div>
                             </div>
                         </div>
+                        @if ($products->total() >= 10)
+                                <div class="d-flex justify-content-center mt-4">
+                                    <div class="bg-transparent rounded-lg p-4">
+                                        <div class="d-flex align-items-center justify-content-center">
+                                            <div class="h4 fw-bold me-2">Paginas:</div>
+                                            <div class="ms-2 text-primary">
+                                                {{ $products->appends(['texto' => $texto])->links() }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                        @endif
                     </div>
 
 
@@ -296,4 +304,11 @@
                         </div>
                     </div>
                 </div>
+                <script>
+                    document.getElementById('search-text').addEventListener('input', function() {
+                        if (this.value === '') {
+                            location.reload();
+                        }
+                    });
+                </script>
     @endsection

@@ -15,17 +15,16 @@ class UserController extends Controller
         //
 
         $roles = Role::all();
-        $texto = trim($request->get('texto'));
-
-        $users = DB::table('users')
-            ->select('id', 'name', 'email', 'password', 'status')
-            ->where('name', 'LIKE', '%' . $texto . '%')
-            ->orWhere('email', 'LIKE', '%' . $texto . '%')
+        $search = $request->search;
+        $users = User::where('name', 'LIKE', '%' . $search . '%')
+            ->orWhere('status', 'LIKE', '%' . $search . '%')
             ->orderBy('id', 'asc')
             ->paginate(10);
-
-        return view('user.index', compact('users', 'texto'));
+        $data = ['users' => $users, 'search' => $search];
+        return view('user.index', $data);
     }
+
+
 
     public function create()
     {
