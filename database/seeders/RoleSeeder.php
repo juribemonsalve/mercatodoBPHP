@@ -23,7 +23,7 @@ class RoleSeeder extends Seeder
 
         Permission::create(['name'=>'user.index'])->syncRoles([$admin]);
         Permission::create(['name'=>'category.index'])->syncRoles([$admin]);
-        Permission::create(['name'=>'adminproduct.index'])->syncRoles([$admin]);
+        Permission::create(['name'=>'product.index'])->syncRoles([$admin]);
 
         Permission::create(['name'=>'dashboard'])->syncRoles([$client]);
     }

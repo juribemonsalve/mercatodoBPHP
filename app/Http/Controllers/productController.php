@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\AdminProductRequest;
+use App\Http\Requests\ProductRequest;
 use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Spatie\Permission\Models\Role;
 
-class AdminProductController extends Controller
+class productController extends controller
 {
     public function index(Request $request)
     {
@@ -24,44 +24,47 @@ class AdminProductController extends Controller
             ->orWhere('description', 'LIKE', '%' . $texto . '%')
             ->orderBy('id', 'asc')
             ->paginate(10);
-        return view('adminproduct.index', compact('products', 'categories', 'texto'));
+        return view('product.index', compact('products', 'categories', 'texto'));
     }
 
     public function create()
     {
         //
-        $categories = Category::all(); // Obtener todas las categorías disponibles
-        return view('product', compact('categories'));
+		$categories = Category::all(); // Obtener todas las categorías disponibles
+        $product= Product::all();
+        return view('product.store_product',compact('product','categories'));
+
     }
 
-    public function store(AdminProductRequest $request)
+    public function store(ProductRequest $request)
     {
+        $categories = Category::all();
         $product = new Product($request->input());
-        $product->saveOrFail();
-
-        return redirect(route('adminproduct.index'));
+        $product->save();
+        return redirect('product',compact('product','categories'));
     }
 
     public function show($id)
     {
         //
         $product = Product::find($id);
-        return view('adminproduct.index', compact('product'));
+        return view('product.index', compact('product'));
     }
 
     public function edit($id)
     {
-        //
+        $categories = Category::all();
+        $product= Product::findOrFail($id);
+        return view('product.edit_product',compact('product','categories'));
     }
 
-    public function update(AdminProductRequest $request, $id)
+    public function update(ProductRequest $request, $id)
     {
         $product = Product::find($id);
-        $categories = Category::all();
+	    $categories = Category::all();
         $product->fill($request->input())->saveOrFail();
-        return redirect(route('adminproduct.index'));
+        return redirect('product');
     }
-
     public function destroy($id)
     {
         $product = Product::findOrFail($id);

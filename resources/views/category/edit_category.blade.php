@@ -1,39 +1,34 @@
 @extends('template.admin')
 @section('content')
-
     <div class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight w-full">
-
         <div class="flex flex-col mt-6">
             <div class="mx-auto">
                 <div class="flex items-center justify-between mb-4">
                     <h2 class="text-xl font-extrabold text-gray-800 dark:text-gray-200 leading-tight text-center">{{ __('Administración de Categorias') }}</h2>
                 </div>
             </div>
-
             <div class="flex items-center justify-center">
                 <div class="w-full max-w-md">
-
                     <div class="modal-content bg-gray-300 rounded-lg shadow">
                         <div class="modal-header flex items-center justify-center">
-                            <h5 class="text-2xl font-bold text-orange-600" id="titulo_modal">Nueva Categoria</h5>
+                            <h5 class="text-2xl font-bold text-orange-600" id="titulo_modal">Editar Categoria</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body px-4 py-6">
-
-                            <form id="frmNuevo" method="POST" action="{{route('category.store')}}">
+                            <form action="{{ url('category/' .$category->id) }}" method="post">
                                 @csrf
+                                @method("PATCH")
+                                <input type="hidden" name="id" id="id"  value="{{ $category->id }}" />
                                 <div class="mb-4">
                                     <label for="name" class="block text-sm font-bold text-black">Nombre</label>
                                     <div class="input-group">
-                                        <span class="input-group-text"><i class="fa-solid fa-user-circle"></i></span>
-                                        <input type="text" name="name" class="form-control rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500" maxlength="30" placeholder="Nombre">
+                                        <input id="name" name="name" type="text" value="{{ $category->name }}" maxlength="50" class="form-input mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring focus:ring-green-500 focus:border-green-500" placeholder="Nombre">
                                     </div>
                                 </div>
                                 <div class="mb-4">
                                     <label for="description" class="block text-sm font-bold text-black">Descripción</label>
                                     <div class="input-group">
-                                        <span class="input-group-text"><i class="fas fa-pencil-alt"></i></span>
-                                        <input type="text" name="description" class="form-control rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500" maxlength="255" placeholder="Descripción">
+                                        <input id="description" name="description" type="text" value="{{ $category->description }}" maxlength="255" class="form-input mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring focus:ring-green-500 focus:border-green-500" placeholder="Descripción">
                                     </div>
                                 </div>
                                 <div class="mt-8">
@@ -51,7 +46,6 @@
                                         <span class="block sm:inline">{{ session('success') }}</span>
                                     </div>
                                 @endif
-
                                 @if ($errors->any())
                                     <div class="bg-gray-300 text-red-700 px-4 py-3 rounded relative" role="alert">
                                         <ul>

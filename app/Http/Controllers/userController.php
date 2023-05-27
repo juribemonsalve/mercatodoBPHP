@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Spatie\Permission\Models\Role;
 
-class UserController extends Controller
+class userController extends controller
 {
     public function index(Request $request)
     {
@@ -33,26 +33,24 @@ class UserController extends Controller
 
     public function store(UserRequest $request)
     {
-        $user = new User($request->input());
-        $user->save();
-        return redirect('user');
+
     }
 
     public function show($id)
     {
-        //
-        $user = User::find($id);
-        return view('user.editUser', compact('user'));
+
     }
 
     public function edit($id)
     {
         //
+        $user = User::findOrFail($id);
+        return view('user.edit_user',compact('user'));
     }
 
     public function update(UserRequest $request, $id)
     {
-        //
+
         $user = User::find($id);
         $user->fill($request->input())->saveOrFail();
         return redirect('user');

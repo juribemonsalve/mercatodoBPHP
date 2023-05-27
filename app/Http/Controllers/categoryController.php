@@ -10,11 +10,11 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Spatie\Permission\Models\Role;
 
-class CategoryController extends Controller
+class categoryController extends Controller
 {
+
     public function index(Request $request)
     {
-        //
         $roles = Role::all();
         $products = Product::all();
         $search = $request->search;
@@ -27,41 +27,47 @@ class CategoryController extends Controller
         return view('category.index', $data);
     }
 
+
     public function create()
     {
-        //
-
         return view('category.store_category');
     }
+
 
     public function store(CategoryRequest $request)
     {
         $category = new Category($request->input());
         $category->save();
-        return redirect('category');
+        return redirect('category')->with('flash_message','Categoria creada!');
     }
+
 
     public function show($id)
     {
 
     }
 
+
     public function edit($id)
     {
         $category = Category::findOrFail($id);
-        return view('category.update_category', compact('category'));
+        return view('category.edit_category',compact('category'));
+
     }
+
 
     public function update(CategoryRequest $request, $id)
     {
-        //
+                //
         $category = Category::find($id);
         $category->fill($request->input())->saveOrFail();
         return redirect('category');
+
     }
 
     public function destroy($id)
     {
+
         try {
             $products = Product::where('category_id', $id)->exists();
             $category = Category::findOrFail($id);
@@ -77,5 +83,6 @@ class CategoryController extends Controller
         } catch (QueryException $e) {
             return redirect()->back()->withErrors(['error' => 'Se produjo un error al eliminar la categoría.']);
         }
+
     }
 }
