@@ -1,8 +1,6 @@
 @extends('template.admin')
     @section('content')
 
-
-
                 <div class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight w-full">
 
                     <div class="flex flex-col mt-6">
@@ -63,7 +61,7 @@
                                                   <td class="px-2 py-2 text-sm text-center text-gray-900 w-1/3 whitespace-nowrap">{{ $category->description}}</td>
                                                   <td class="px-1 py-1 text-sm font-medium text-center">
 
-                                                    <a href="#" class="text-blue-400 hover:text-orange-500 font-extrabold" {{ $category->id }}">
+                                                    <a href="{{ url('/category/' . $category->id . '/edit') }}" class="text-blue-400 hover:text-orange-500 font-extrabold">
                                                       <i class="fa-solid fa-edit"></i>Editar
                                                     </a>
 
@@ -106,116 +104,6 @@
                             </div>
                         @endif
 
-                    </div>
-
-
-                    @foreach ($categories as $category)
-                        <div class="modal fade" id="modalEdit{{ $category->id }}" tabindex="-1" aria-labelledby="modalEditLabel" aria-hidden="true">
-                          <div class="modal-dialog">
-                            <div class="modal-content">
-                              <div class="bg-gray-300 rounded-lg py-8 px-4 shadow-sm sm:px-10">
-                                <div class="modal-header">
-                                  <h5 class="text-2xl font-bold text-black">Editar Categoria</h5>
-                                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body">
-                                  <form id="frmEdit" method="POST" action="{{ route('category.update', $category->id) }}">
-                                    @csrf
-                                    @method('PUT')
-                                    <div class="mb-4">
-                                      <label for="name" class="block text-sm font-bold text-black">Nombre</label>
-                                      <div class="input-group">
-                                        <input id="name" name="name" type="text" value="{{ $category->name }}" maxlength="50" class="form-input mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring focus:ring-green-500 focus:border-green-500" placeholder="Nombre">
-                                      </div>
-                                    </div>
-                                    <div class="mb-4">
-                                      <label for="description" class="block text-sm font-bold text-black">Descripción</label>
-                                      <div class="input-group">
-                                        <input id="description" name="description" type="text" value="{{ $category->description }}" maxlength="255" class="form-input mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring focus:ring-green-500 focus:border-green-500" placeholder="Descripción">
-                                      </div>
-                                    </div>
-                                    <div class="mt-8">
-                                      <button type="submit" class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">
-                                        <i class="fa-solid fa-floppy-disk"></i> Guardar
-                                      </button>
-                                      <button type="button" id="btnCerrar" class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-gray-600 hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500" data-bs-dismiss="modal">
-                                        <i class="fa-solid fa-times"></i> Cerrar
-                                      </button>
-                                    </div>
-                                    @if (session('success'))
-                                        <div class="bg-gray-300 text-green-700 px-4 py-3 rounded relative" role="alert">
-                                            <span class="block sm:inline">{{ session('success') }}</span>
-                                        </div>
-                                    @endif
-
-                                    @if ($errors->any())
-                                        <div class="bg-gray-300 text-red-700 px-4 py-3 rounded relative" role="alert">
-                                            <ul>
-                                                @foreach ($errors->all() as $error)
-                                                    <li>{{ $error }}</li>
-                                                @endforeach
-                                            </ul>
-                                        </div>
-                                    @endif
-                                  </form>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                    @endforeach
-
-                    <div class="modal fade" id="modalNuevo" tabindex="-1" aria-hidden="true">
-                        <div class="modal-dialog">
-                            <div class="modal-content bg-gray-300 rounded-lg shadow">
-                                <div class="modal-header">
-                                    <h5 class="text-2xl font-bold text-black" id="titulo_modal">Nueva Categoria</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body px-4 py-6">
-                                    <form id="frmNuevo" method="POST" action="{{route('category.store')}}">
-                                        @csrf
-                                        <div class="mb-4">
-                                            <label for="name" class="block text-sm font-bold text-black">Nombre</label>
-                                            <div class="input-group">
-                                                <span class="input-group-text"><i class="fa-solid fa-user-circle"></i></span>
-                                                <input type="text" name="name" class="form-control rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500" maxlength="30" placeholder="Nombre">
-                                            </div>
-                                        </div>
-                                        <div class="mb-4">
-                                            <label for="description" class="block text-sm font-bold text-black">Descripción</label>
-                                            <div class="input-group">
-                                                <span class="input-group-text"><i class="fas fa-pencil-alt"></i></span>
-                                                <input type="text" name="description" class="form-control rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500" maxlength="255" placeholder="Descripción">
-                                            </div>
-                                        </div>
-                                        <div class="mt-8">
-                                            <button type="submit" class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">
-                                                <i class="fa-solid fa-floppy-disk"></i> Guardar
-                                            </button>
-                                            <button type="button" id="btnCerrar" class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-gray-600 hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500" data-bs-dismiss="modal">
-                                                <i class="fa-solid fa-times"></i> Cerrar
-                                            </button>
-                                        </div>
-                                        @if (session('success'))
-                                            <div class="bg-gray-300 text-green-700 px-4 py-3 rounded relative" role="alert">
-                                                <span class="block sm:inline">{{ session('success') }}</span>
-                                            </div>
-                                        @endif
-
-                                        @if ($errors->any())
-                                            <div class="bg-gray-300 text-red-700 px-4 py-3 rounded relative" role="alert">
-                                                <ul>
-                                                    @foreach ($errors->all() as $error)
-                                                        <li>{{ $error }}</li>
-                                                    @endforeach
-                                                </ul>
-                                            </div>
-                                        @endif
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                 </div>
                 <script>

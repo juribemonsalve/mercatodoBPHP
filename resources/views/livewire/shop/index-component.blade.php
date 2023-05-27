@@ -67,7 +67,7 @@
             @endforeach
         @endif
     </div>
-    @if ($users->total() >= 10)
+    @if ($products->total() >= 10)
 
         <div class="d-flex justify-content-center mt-4">
             <div class="bg-transparent rounded-lg p-4">

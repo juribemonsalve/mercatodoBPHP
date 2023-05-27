@@ -17,7 +17,7 @@ class IndexComponent extends Component
         $products = Product::where('name', 'LIKE', '%' . $search . '%')
                     ->orWhere('description', 'LIKE', '%' . $search . '%')
                     ->latest('id', 'asc')
-                    ->paginate(10);
+                    ->paginate(9);
         $data = [
             'products' => $products,
             'search' => $search,

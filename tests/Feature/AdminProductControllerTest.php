@@ -12,7 +12,7 @@ class AdminProductControllerTest extends TestCase
 
     public function test_permission_index_adminproduct(): void
     {
-        $response = $this->get(route('adminproduct.index'));
+        $response = $this->get(route('product.index'));
         $response->assertRedirect(route('login'));
     }
 }
