@@ -30,10 +30,9 @@ class productController extends controller
     public function create()
     {
         //
-		$categories = Category::all(); // Obtener todas las categorías disponibles
-        $product= Product::all();
-        return view('product.store_product',compact('product','categories'));
-
+        $categories = Category::all(); // Obtener todas las categorías disponibles
+        $product = Product::all();
+        return view('product.store_product', compact('product', 'categories'));
     }
 
     public function store(ProductRequest $request)
@@ -41,7 +40,7 @@ class productController extends controller
         $categories = Category::all();
         $product = new Product($request->input());
         $product->save();
-        return redirect('product',compact('product','categories'));
+        return redirect('product', compact('product', 'categories'));
     }
 
     public function show($id)
@@ -54,14 +53,14 @@ class productController extends controller
     public function edit($id)
     {
         $categories = Category::all();
-        $product= Product::findOrFail($id);
-        return view('product.edit_product',compact('product','categories'));
+        $product = Product::findOrFail($id);
+        return view('product.edit_product', compact('product', 'categories'));
     }
 
     public function update(ProductRequest $request, $id)
     {
         $product = Product::find($id);
-	    $categories = Category::all();
+        $categories = Category::all();
         $product->fill($request->input())->saveOrFail();
         return redirect('product');
     }

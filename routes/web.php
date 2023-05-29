@@ -1,9 +1,11 @@
 <?php
 
-use App\Http\Controllers\productController;
 use App\Http\Controllers\categoryController;
+use App\Http\Controllers\productController;
 use App\Http\Controllers\profileController;
 use App\Http\Controllers\userController;
+use App\Http\Livewire\Shop\Cart\IndexComponent as CartIndexComponent;
+use App\Http\Livewire\Shop\CheckoutComponet;
 use App\Http\Livewire\Shop\IndexComponent;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -19,6 +21,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 Route::get('/', IndexComponent::class)->name('inicio');
+Route::get('/cart', CartIndexComponent::class)->name('cart');
+Route::get('/checkout', CheckoutComponet::class)->name('checkout');
 
 Route::get('/login', function () {
     return view('login');
@@ -32,14 +36,12 @@ Route::middleware('auth')->group(function () {
     })->name('user.index');
 
     Route::middleware(['can:category.index'])->group(function () {
-        Route::resource("/category", categoryController::class);
+        Route::resource('/category', categoryController::class);
     })->name('category.index');
 
     Route::middleware(['can:product.index'])->group(function () {
         Route::resource('product', productController::class);
     })->name('product.index');
-
-
 
     Route::get('/profile', [profileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [profileController::class, 'update'])->name('profile.update');
@@ -48,7 +50,6 @@ Route::middleware('auth')->group(function () {
     Route::post('/user', [userController::class, 'store'])->name('user.store');
     Route::put('/user/{id}', [userController::class, 'update'])->name('user.update');
     Route::delete('/user/{id}', [userController::class, 'destroy'])->name('user.destroy');
-
 });
 
 require __DIR__ . '/auth.php';
