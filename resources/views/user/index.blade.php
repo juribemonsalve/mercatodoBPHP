@@ -36,7 +36,7 @@
 
 
 
-                    <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+                    <div class="container-fluid">
                             <div class="py-2 align-middle inline-block w-full sm:px-6 lg:px-8">
                                 <div class="shadow overflow-hidden border-b border-orange-400 sm:rounded-lg">
                                      <div class="table-responsive">

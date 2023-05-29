@@ -10,12 +10,6 @@
                         </div>
                     </div>
 
-                    <div class="flex items-center justify-start mb-4 ml-auto">
-                        <a href="{{ url('/category/create') }}" class="px-4 py-2 font-bold flex items-center text-white bg-gray-800 rounded-md shadow-md hover:bg-gray-700">
-                            <i class="fa-solid fa-circle-plus"></i> Añadir Categoría
-                        </a>
-                    </div>
-
                     <div class="flex flex-col my-1 w-full">
                       <div class="mx-auto">
                         <div class="flex items-center justify-between my-2 w-full">
@@ -34,10 +28,15 @@
                       </div>
                     </div>
 
-                    <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+                    <div class="container-fluid">
                         <div class="py-2 align-middle inline-block w-full sm:px-6 lg:px-8">
                             <div class="shadow overflow-hidden border-b border-orange-400 sm:rounded-lg">
                                 <div class="table-responsive">
+                                    <div class="flex items-center justify-end mb-4">
+                                        <a href="{{ url('/category/create') }}" class="px-2 py-2 font-bold flex items-center text-white bg-gray-800 rounded-md shadow-md hover:bg-gray-700">
+                                            <i class="fa-solid fa-circle-plus"></i> Añadir Categoría
+                                        </a>
+                                    </div>
                                     <table class="w-full divide-y divide-orange-500">
                                         <thead class="bg-orange-400-50">
                                             <tr>
@@ -58,7 +57,7 @@
                                                 <tr>
                                                   <td class="px-2 py-2 text-sm text-center text-gray-900 w-1/6">{{ $category->id }}</td>
                                                   <td class="px-2 py-2 text-sm text-center text-gray-900 w-1/6">{{ $category->name }}</td>
-                                                  <td class="px-2 py-2 text-sm text-center text-gray-900 w-1/3 whitespace-nowrap">{{ $category->description}}</td>
+                                                  <td class="px-2 py-2 text-sm text-center text-gray-900 w-1/6">{{ $category->description}}</td>
                                                   <td class="px-1 py-1 text-sm font-medium text-center">
 
                                                     <a href="{{ url('/category/' . $category->id . '/edit') }}" class="text-blue-400 hover:text-orange-500 font-extrabold">

@@ -1,23 +1,24 @@
 <?php
 
-
 namespace App\Http\Livewire\Shop;
 
 use App\Models\Product;
-use App\Models\Category;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 
 class IndexComponent extends Component
 {
     public function render(Request $request)
     {
-        $search = $request->search;
-        $products = Product::where('name', 'LIKE', '%' . $search . '%')
-                    ->orWhere('description', 'LIKE', '%' . $search . '%')
-                    ->latest('id', 'asc')
-                    ->paginate(9);
+        $search = $request->input('search');
+        $products = Product::where('status', 'active')
+            ->where(function ($query) use ($search) {
+                $query->where('name', 'LIKE', '%' . $search . '%')
+                    ->orWhere('description', 'LIKE', '%' . $search . '%');
+            })
+            ->latest('id')
+            ->paginate(9);
+
         $data = [
             'products' => $products,
             'search' => $search,
@@ -28,5 +29,19 @@ class IndexComponent extends Component
             ->section('content');
     }
 
+    public function add_to_cart(Product $product)
+    {
+        \Cart::add([
+            'id' => $product->id,
+            'name' => $product->name,
+            'price' => $product->price,
+            'quantity' => 1,
+            'attributes' => [],
+            'associatedModel' => $product,
 
+        ]);
+
+        $this->emit('message', 'El producto se ha agregado correctamente.');
+        $this->emitTo('shop.cart-component', 'add_to_cart');
+    }
 }

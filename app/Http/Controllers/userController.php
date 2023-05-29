@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Http\Requests\UserRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Spatie\Permission\Models\Role;
 
 class userController extends controller
@@ -24,8 +23,6 @@ class userController extends controller
         return view('user.index', $data);
     }
 
-
-
     public function create()
     {
         //
@@ -33,24 +30,21 @@ class userController extends controller
 
     public function store(UserRequest $request)
     {
-
     }
 
     public function show($id)
     {
-
     }
 
     public function edit($id)
     {
         //
         $user = User::findOrFail($id);
-        return view('user.edit_user',compact('user'));
+        return view('user.edit_user', compact('user'));
     }
 
     public function update(UserRequest $request, $id)
     {
-
         $user = User::find($id);
         $user->fill($request->input())->saveOrFail();
         return redirect('user');

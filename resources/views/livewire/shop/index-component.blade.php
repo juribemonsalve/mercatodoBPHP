@@ -15,8 +15,8 @@
             <div class="flex items-center justify-between my-2">
                 <form action="{{ route('inicio') }}" method="get" class="w-full">
                     <div class="flex items-center w-full">
-                        <input type="text" class="w-full px-4 py-2 border border-gray-300 rounded-l-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" name="search" value="{{$search}}" placeholder="Nombre o Estado">
-                        <button type="submit" class="flex items-center justify-center px-4 py-2 border border-transparent rounded-r-md bg-blue-500 hover:bg-blue-600 text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                        <input type="text" class="w-full px-4 py-2 border border-gray-300 rounded-l-md focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500" name="search" value="{{$search}}" placeholder="Nombre o Estado">
+                        <button type="submit" class="flex items-center justify-center px-4 py-2 border border-transparent rounded-r-md bg-orange-500 hover:bg-orange-600 text-white focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500">
                             <svg class="w-4 h-4 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 18h4m-2-2v-4m2 4v4m-4-4H6a4 4 0 1 1 0-8h4a4 4 0 1 1 0 8z"></path>
                             </svg>
@@ -58,11 +58,13 @@
 
                     </div>
                     <div class="p-4 bg-gray-100 rounded-b-lg">
-                        <a href="#" class="text-blue-500 font-semibold flex items-center">
-                            <i class="fas fa-shopping-cart text-blue-500 mr-1"></i>
+
+                        <button type="button" class="text-orange-600 font-semibold flex items-center" wire:click="add_to_cart({{$product->id}})">
+                            <i class="fas fa-shopping-cart text-orange-600 mr-1"></i>
                             <span>Agregar al carrito</span>
-                        </a>
+                        </button>
                     </div>
+
                 </div>
             @endforeach
         @endif
