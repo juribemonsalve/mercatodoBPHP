@@ -26,9 +26,13 @@ class UserFactory extends Factory
             'remember_token' => Str::random(10),
             */
 
-            'name' => $this->faker->name(),
+            'documentType' => $this->faker->randomElement(['CC', 'CE', 'TI', 'NIT', 'RUT']),
+            'document' => strval($this->faker->unique()->numberBetween(10000, 9999999999)),
+            'fullname' => $this->faker->firstName . ' ' . $this->faker->lastName,
             'email' => $this->faker->unique()->email(),
             'email_verified_at' => now(),
+            'mobile' => strval($this->faker->numberBetween(3000000000, 3500000000)),
+            'address'=> $this->faker->address(),
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
             'status'=> 'disabled',
             'remember_token' => Str::random(10),

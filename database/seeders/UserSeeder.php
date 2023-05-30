@@ -16,24 +16,33 @@ class UserSeeder extends Seeder
     public function run()
     {
         User::create([
-            'name' => 'admin',
+            'documentType' => 'CC',
+            'document'=> '1037661112',
+            'fullname' => 'Juan Uribe',
             'email' => 'admin@mercatodo.com',
             'email_verified_at' => now(),
+            'mobile'=> '3045293688',
+            'address'=> 'Avenida 43 #57-39',
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
             'status'=> 'active',
             'remember_token' => Str::random(10),
         ])->assignRole('Admin');
 
+
         User::create([
-          'name' => 'juan',
-          'email' => 'juan@mercatodo.com',
-          'email_verified_at' => now(),
-          'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
-          'status'=> 'active',
-          'remember_token' => Str::random(10),
+            'documentType' => 'CC',
+            'document'=> '1020574620',
+            'fullname' => 'Tatiana Uribe',
+            'email' => 'tatiana@mercatodo.com',
+            'email_verified_at' => now(),
+            'mobile'=> '3218813319',
+            'address'=> 'Avenida 43 #57-39',
+            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
+            'status'=> 'active',
+            'remember_token' => Str::random(10),
         ])->assignRole('Client');
 
-        User::factory(30)->create()->each(
+        User::factory(500)->create()->each(
             function ($user) {
                 $user->assignRole('Client');
             }
