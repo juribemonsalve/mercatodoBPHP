@@ -6,7 +6,7 @@ use App\Models\Product;
 use Illuminate\Http\Request;
 use Livewire\Component;
 
-class IndexComponent extends Component
+class indexComponent extends Component
 {
     public function render(Request $request)
     {

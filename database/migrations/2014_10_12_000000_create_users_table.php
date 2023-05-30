@@ -14,14 +14,19 @@ return new class() extends Migration {
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->enum('documentType', ['CC', 'CE', 'TI', 'NIT', 'RUT']);
+            $table->string('document')->unique();
+            $table->string('fullname');
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
+            $table->string('mobile');
+            $table->string('address');
             $table->string('password');
             $table->enum('status', ['active', 'disabled'])->default('active');
             $table->softDeletes();
             $table->rememberToken();
             $table->timestamps();
+
         });
     }
 

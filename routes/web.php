@@ -4,11 +4,11 @@ use App\Http\Controllers\categoryController;
 use App\Http\Controllers\productController;
 use App\Http\Controllers\profileController;
 use App\Http\Controllers\userController;
-use App\Http\Livewire\Shop\Cart\IndexComponent as CartIndexComponent;
-use App\Http\Livewire\Shop\CheckoutComponet;
-use App\Http\Livewire\Shop\IndexComponent;
-use Illuminate\Foundation\Application;
+use App\Http\Livewire\Shop\checkoutComponent;
 use Illuminate\Support\Facades\Route;
+
+use App\Http\Livewire\Shop\Cart\indexComponent as CartIndexComponent;
+use App\Http\Livewire\Shop\indexComponent;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,20 +20,24 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-Route::get('/', IndexComponent::class)->name('inicio');
+Route::get('/',indexComponent::class)->name('inicio');
 Route::get('/cart', CartIndexComponent::class)->name('cart');
-Route::get('/checkout', CheckoutComponet::class)->name('checkout');
-
 Route::get('/login', function () {
     return view('login');
 })->middleware('guest');
 
+
+
+
 Route::post('/login', 'Auth\authenticate@login')->middleware('CheckBanned');
 
-Route::middleware('auth')->group(function () {
+Route::middleware(['auth', 'verified'])->group(function () {
+
     Route::middleware(['can:user.index'])->group(function () {
         Route::resource('user', userController::class);
     })->name('user.index');
+
+    Route::get('/checkout', checkoutComponent::class)->name('checkout');
 
     Route::middleware(['can:category.index'])->group(function () {
         Route::resource('/category', categoryController::class);
@@ -51,5 +55,6 @@ Route::middleware('auth')->group(function () {
     Route::put('/user/{id}', [userController::class, 'update'])->name('user.update');
     Route::delete('/user/{id}', [userController::class, 'destroy'])->name('user.destroy');
 });
+
 
 require __DIR__ . '/auth.php';
