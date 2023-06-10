@@ -16,14 +16,14 @@ class Order extends Model
 
     protected $with = [
         'user',
-        'post',
+        'product',
     ];
 
     protected $fillable = [
         'user_id',
-        'request_id',
+        'order_id',
         'provider',
-        'process_url',
+        'url',
         'total',
         'currency',
         'status',
@@ -32,9 +32,9 @@ class Order extends Model
     protected $casts = [
 
         'user_id'=> 'integer',
-        'request_id'=> 'integer',
+        'order_id'=> 'integer',
         'provider' => 'string',
-        'process_url' => 'string',
+        'url' => 'string',
         'total'=> 'integer',
         'currency' => 'string',
         'status' => 'string',
@@ -60,7 +60,7 @@ class Order extends Model
         ]);
     }
 
-    public function post(): BelongsTo
+    public function product(): BelongsTo
     {
         return $this->belongsTo(Product::class);
     }

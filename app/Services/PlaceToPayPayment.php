@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Domain\Order\OrderCreateAction;
 use App\Domain\Order\OrderGetLastAction;
 use App\Domain\Order\OrderUpdateAction;
+use App\Models\Order;
 use Carbon\Carbon;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Model;
@@ -23,16 +24,17 @@ class PlaceToPayPayment extends PaymentBase
         $order = OrderCreateAction::execute($request->all());
 
         $result = Http::post(
-            config('services.placetopay.url') . '/api/session',
-            $this->createSession($order, $request)
+            config('placetopay.url') . '/api/session',
+            $this->createSession($order, $request, $request->ip(), $request->userAgent())
         );
 
         if ($result->ok()) {
-            $order->request_id = $result->json()['requestId'];
-            $order->process_url = $result->json()['processUrl'];
+
+            $order->order_id = $result->json()['requestId'];
+            $order->url = $result->json()['processUrl'];
 
             OrderUpdateAction::execute($order);
-            return redirect()->to($order->process_url);
+            return redirect()->to($order->url)->send();
         }
 
         throw new \Exception($result->body());
@@ -43,7 +45,7 @@ class PlaceToPayPayment extends PaymentBase
         Log::info('[PAY]: Enviamos la notificacion PlaceToPay');
     }
 
-    private function createSession(Model $order, Request $request): array
+    private function createSession(Model $order, Request $request, string $ipAddress, string $userAgent,): array
     {
 
 
@@ -66,9 +68,9 @@ class PlaceToPayPayment extends PaymentBase
                 ],
             ],
             'expiration' => Carbon::now()->addHour(),
-            'returnUrl' => route('inicio'),
-            'ipAddress' => $request->ip(),
-            'userAgent' => $request->userAgent()
+            'returnUrl' => route('payments.processResponse'),
+            'ipAddress' => $ipAddress,
+            'userAgent' => $userAgent,
         ];
     }
 
@@ -78,11 +80,11 @@ class PlaceToPayPayment extends PaymentBase
         $seed = date('c');
 
         return [
-            'login' => config('services.placetopay.login'),
+            'login' => config('placetopay.login'),
             'tranKey' => base64_encode(
                 hash(
                     'sha256',
-                    $nonce . $seed . config('services.placetopay.tranKey'),
+                    $nonce . $seed . config('placetopay.tranKey'),
                     true
                 )
             ),
@@ -95,9 +97,11 @@ class PlaceToPayPayment extends PaymentBase
     {
         $order = OrderGetLastAction::execute();
 
-        $result = Http::post(config('services.placetopay.url') . "/api/session/$order->request_id", [
+        $result = Http::post(config('placetopay.url') . "/api/session/$order->order_id",
+            [
             'auth' => $this->getAuth(),
-        ]);
+            ]
+        );
 
         if ($result->ok()) {
             $status = $result->json()['status']['status'];
