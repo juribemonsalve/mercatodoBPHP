@@ -43,9 +43,15 @@
                                 </div>
 
                                 <div>
-                                    <x-input-label for="fullname" :value="__('Nombre Completo')" />
-                                    <x-text-input id="fullname" class="block mt-1 w-full" type="text" name="fullname" :value="old('fullname')"  autofocus autocomplete="fullname" placeholder="Nombre"/>
-                                    <x-input-error :messages="$errors->get('fullname')" class="mt-1" />
+                                    <x-input-label for="name" :value="__('Nombre')" />
+                                    <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')"  autofocus autocomplete="name" placeholder="Nombre"/>
+                                    <x-input-error :messages="$errors->get('name')" class="mt-1" />
+                                </div>
+
+                                <div>
+                                    <x-input-label for="surname" :value="__('Apellido')" />
+                                    <x-text-input id="surname" class="block mt-1 w-full" type="text" name="surname" :value="old('surname')"  autofocus autocomplete="surname" placeholder="Apellido"/>
+                                    <x-input-error :messages="$errors->get('surname')" class="mt-1" />
                                 </div>
 
                                 <div>

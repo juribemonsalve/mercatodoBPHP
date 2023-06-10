@@ -18,7 +18,8 @@ class UserSeeder extends Seeder
         User::create([
             'documentType' => 'CC',
             'document'=> '1037661112',
-            'fullname' => 'Juan Uribe',
+            'name' => 'Juan',
+            'surname' => 'Uribe',
             'email' => 'admin@mercatodo.com',
             'email_verified_at' => now(),
             'mobile'=> '3045293688',
@@ -28,11 +29,11 @@ class UserSeeder extends Seeder
             'remember_token' => Str::random(10),
         ])->assignRole('Admin');
 
-
         User::create([
             'documentType' => 'CC',
             'document'=> '1020574620',
-            'fullname' => 'Tatiana Uribe',
+            'name' => 'Tatiana',
+            'surname' => 'Uribe',
             'email' => 'tatiana@mercatodo.com',
             'email_verified_at' => now(),
             'mobile'=> '3218813319',
@@ -42,7 +43,7 @@ class UserSeeder extends Seeder
             'remember_token' => Str::random(10),
         ])->assignRole('Client');
 
-        User::factory(500)->create()->each(
+        User::factory(8)->create()->each(
             function ($user) {
                 $user->assignRole('Client');
             }
