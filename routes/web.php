@@ -1,14 +1,16 @@
 <?php
 
 use App\Http\Controllers\categoryController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\productController;
 use App\Http\Controllers\profileController;
 use App\Http\Controllers\userController;
-use App\Http\Livewire\Shop\checkoutComponent;
-use Illuminate\Support\Facades\Route;
+use App\Http\Livewire\Shop\Cart\paymentComponent;
 
-use App\Http\Livewire\Shop\Cart\indexComponent as CartIndexComponent;
+use App\Http\Livewire\Shop\checkoutComponent;
+
 use App\Http\Livewire\Shop\indexComponent;
+use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,19 +22,15 @@ use App\Http\Livewire\Shop\indexComponent;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-Route::get('/',indexComponent::class)->name('inicio');
-Route::get('/cart', CartIndexComponent::class)->name('cart');
+Route::get('/', indexComponent::class)->name('inicio');
+Route::get('/cart', PaymentComponent::class)->name('cart');
 Route::get('/login', function () {
     return view('login');
 })->middleware('guest');
 
-
-
-
 Route::post('/login', 'Auth\authenticate@login')->middleware('CheckBanned');
 
 Route::middleware(['auth', 'verified'])->group(function () {
-
     Route::middleware(['can:user.index'])->group(function () {
         Route::resource('user', userController::class);
     })->name('user.index');
@@ -54,7 +52,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/user', [userController::class, 'store'])->name('user.store');
     Route::put('/user/{id}', [userController::class, 'update'])->name('user.update');
     Route::delete('/user/{id}', [userController::class, 'destroy'])->name('user.destroy');
-});
 
+    Route::resource('orders', OrderController::class)->only(['index']);
+
+    Route::post('payments', [PaymentComponent::class, 'processPayment'])->name('payments.processPayment');
+    Route::get('payments/payment/response', [PaymentComponent::class, 'processResponse'])->name('payments.processResponse');
+});
 
 require __DIR__ . '/auth.php';

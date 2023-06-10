@@ -24,7 +24,9 @@ class User extends Authenticatable implements MustVerifyEmail
      */
     protected $fillable = [
         'documentType',
-        'fullname',
+        'name',
+        'surname',
+        'full_name',
         'email',
         'mobile',
         'address',
@@ -32,8 +34,6 @@ class User extends Authenticatable implements MustVerifyEmail
         'status',
         'document',
     ];
-
-
 
     /**
      * The attributes that should be hidden for serialization.

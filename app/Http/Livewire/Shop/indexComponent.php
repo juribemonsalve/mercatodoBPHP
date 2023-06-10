@@ -23,7 +23,6 @@ class indexComponent extends Component
             'products' => $products,
             'search' => $search,
         ];
-
         return view('livewire.shop.index-component', $data)
             ->extends('template.admin')
             ->section('content');

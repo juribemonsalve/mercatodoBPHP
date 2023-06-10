@@ -63,7 +63,7 @@
                                                             {{ $user->id}}
                                                         </td>
                                                         <td class="px-2 py-2 text-sm text-center text-gray-900 w-1/6">
-                                                            {{ $user->name }}
+                                                            {{ $user->full_name }}
                                                         </td>
                                                         <td class="px-2 py-2 text-sm text-center text-gray-900 w-1/3 whitespace-nowrap">
                                                             {{ $user->email }}

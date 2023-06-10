@@ -15,7 +15,7 @@ class userController extends controller
 
         $roles = Role::all();
         $search = $request->search;
-        $users = User::where('name', 'LIKE', '%' . $search . '%')
+        $users = User::where('full_name', 'LIKE', '%' . $search . '%')
             ->orWhere('status', 'LIKE', '%' . $search . '%')
             ->orderBy('id', 'asc')
             ->paginate(10);

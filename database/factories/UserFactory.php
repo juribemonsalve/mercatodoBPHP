@@ -28,7 +28,8 @@ class UserFactory extends Factory
 
             'documentType' => $this->faker->randomElement(['CC', 'CE', 'TI', 'NIT', 'RUT']),
             'document' => strval($this->faker->unique()->numberBetween(10000, 9999999999)),
-            'fullname' => $this->faker->firstName . ' ' . $this->faker->lastName,
+            'name' => $this->faker->firstName,
+            'surname' => $this->faker->lastName,
             'email' => $this->faker->unique()->email(),
             'email_verified_at' => now(),
             'mobile' => strval($this->faker->numberBetween(3000000000, 3500000000)),

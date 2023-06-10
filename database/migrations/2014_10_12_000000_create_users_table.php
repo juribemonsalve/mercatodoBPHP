@@ -10,13 +10,15 @@ return new class() extends Migration {
      *
      * @return void
      */
-    public function up()
+    public function up(): void
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->enum('documentType', ['CC', 'CE', 'TI', 'NIT', 'RUT']);
             $table->string('document')->unique();
-            $table->string('fullname');
+            $table->string('name');
+            $table->string('surname');
+            $table->string('full_name')->virtualAs('CONCAT(name, " ", surname)');
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('mobile');
@@ -26,16 +28,10 @@ return new class() extends Migration {
             $table->softDeletes();
             $table->rememberToken();
             $table->timestamps();
-
         });
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
+    public function down(): void
     {
         Schema::dropIfExists('users');
     }

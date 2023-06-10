@@ -21,7 +21,7 @@
                                 <input type="hidden" name="id" id="id"  value="{{ $user->id }}" />
                                 <div class="mb-4">
                                     <label for="name" class="block text-sm font-bold text-black">Nombre</label>
-                                    <input id="name" name="name" type="text" value="{{ $user->name }}" maxlength="50" class="form-input mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring focus:ring-green-500 focus:border-green-500" placeholder="Nombre">
+                                    <input id="name" name="name" type="text" value="{{ $user->fullname }}" maxlength="50" class="form-input mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring focus:ring-green-500 focus:border-green-500" placeholder="Nombre">
                                 </div>
                                 <div class="mb-4">
                                     <label for="email" class="block text-sm font-bold text-black">Correo</label>

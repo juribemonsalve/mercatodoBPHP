@@ -143,8 +143,10 @@
                                                name="exampleRadios" id="exampleRadios2" value="placetopay">
                                         <label class="form-check-label" for="exampleRadios2">
                                             placetopay
+                                            <img src="https://static.placetopay.com/placetopay-logo.svg" class="attachment-0x0 size-0x0" alt="">
                                         </label>
                                     </div>
+
                                 </div>
 
                                 <div class="mt-2">
