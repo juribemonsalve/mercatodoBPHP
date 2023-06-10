@@ -57,6 +57,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::post('payments', [PaymentComponent::class, 'processPayment'])->name('payments.processPayment');
     Route::get('payments/payment/response', [PaymentComponent::class, 'processResponse'])->name('payments.processResponse');
+
 });
 
 require __DIR__ . '/auth.php';
