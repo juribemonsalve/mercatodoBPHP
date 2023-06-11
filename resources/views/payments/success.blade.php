@@ -1,27 +1,50 @@
-<x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Pago Exitoso') }}
-        </h2>
-    </x-slot>
+@extends('template.admin')
+    @section('content')
 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900">
-                    @if($status == 'PENDING')
-                        @include('payments.partial.status_pending')
-                    @endif
+                <div class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight w-full">
 
-                    @if($status == 'COMPLETED')
-                        @include('payments.partial.status_success')
-                    @endif
+                    <div class="flex flex-col mt-6">
+                        <div class="mx-auto">
+                        <div class="flex items-center justify-between mb-4">
+                            <h2 class="text-xl font-extrabold text-gray-800 dark:text-gray-200 leading-tight text-center">{{ __('Estado del Pago') }}</h2>
+                        </div>
+                    </div>
 
-                    @if($status == 'CANCELED')
-                        @include('payments.partial.status_cancel')
-                    @endif
+                    <div class="container-fluid">
+                        <div class="py-2 align-middle inline-block w-full sm:px-6 lg:px-8">
+                            <div class="shadow overflow-hidden border-b border-orange-400 sm:rounded-lg">
+
+                                <div class="py-12">
+
+                                                @if($status == 'APPROVED')
+                                                    @include('payments.partial.status_approved')
+                                                @endif
+
+                                                @if($status == 'PENDING')
+                                                    @include('payments.partial.status_pending')
+                                                @endif
+
+                                                @if($status == 'REJECTED')
+                                                    @include('payments.partial.status_rejected')
+                                                @endif
+
+                                                @if($status == 'APPROVED_PARTIAL')
+                                                    @include('payments.partial.status_approved_partial')
+                                                @endif
+
+                                                @if($status == 'PARTIAL_EXPIRED')
+                                                    @include('payments.partial.status_partial_expired')
+                                                @endif
+
+                                                @if($status == 'FAILED')
+                                                    @include('payments.partial.status_failed')
+                                                @endif
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </div>
-    </div>
-</x-app-layout>
+
+    @endsection
+

@@ -13,5 +13,5 @@
 </div>
 
 <div class="my-4 flex items-center justify-center">
-
+    <x-button-component :label="'Ver mis Ordenes'" route="{{ route('orders.index') }}"/>
 </div>

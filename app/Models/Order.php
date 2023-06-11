@@ -9,7 +9,6 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Order extends Model
 {
-
     use HasFactory;
 
     protected $table = 'orders';
@@ -21,9 +20,10 @@ class Order extends Model
 
     protected $fillable = [
         'user_id',
-        'order_id',
+        'reference_order',
+        'request_id',
         'provider',
-        'url',
+        'process_url',
         'total',
         'currency',
         'status',
@@ -32,13 +32,13 @@ class Order extends Model
     protected $casts = [
 
         'user_id'=> 'integer',
-        'order_id'=> 'integer',
+        'reference_order', 'string',
+        'request_id'=> 'integer',
         'provider' => 'string',
-        'url' => 'string',
+        'process_url' => 'string',
         'total'=> 'integer',
         'currency' => 'string',
         'status' => 'string',
-
     ];
 
     public function user(): HasOne
@@ -49,14 +49,15 @@ class Order extends Model
     public function completed(): void
     {
         $this->update([
-            'status' => 'COMPLETED'
+            'status' => 'APPROVED'
         ]);
     }
+
 
     public function canceled(): void
     {
         $this->update([
-            'status' => 'CANCELED'
+            'status' => 'REJECTED'
         ]);
     }
 
@@ -64,5 +65,4 @@ class Order extends Model
     {
         return $this->belongsTo(Product::class);
     }
-
 }

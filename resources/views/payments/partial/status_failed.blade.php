@@ -1,17 +1,15 @@
 <div class="flex items-center justify-center">
     <img width="200"
-         src="https://cdn-icons-png.flaticon.com/512/3756/3756719.png"
-         alt="Pago Pendiente">
-
-
+         src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/OOjs_UI_icon_cancel-destructive.svg/1200px-OOjs_UI_icon_cancel-destructive.svg.png"
+         alt="Pago Fallido">
 </div>
 
 <div class="flex items-center justify-center">
-    <h1>Pago está Pendiente !</h1>
+    <h1>Pago Fallido !</h1>
 </div>
 
 <div class="flex items-center justify-center">
-    <h4>Su pago está pendiente con {{ $processor }}</h4>
+    <h4>Su pago fue fallido con {{ $processor }}</h4>
 </div>
 
 <div class="my-4 flex items-center justify-center">
