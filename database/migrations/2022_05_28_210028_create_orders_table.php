@@ -16,6 +16,7 @@ return new class() extends Migration {
             $table->id();
             $table->foreignId('user_id')->constrained('users');
             $table->string('reference_order')->nullable();
+            $table->integer('item_count');
             $table->string('request_id')->nullable();
             $table->string('process_url')->nullable();
             $table->string('provider');
