@@ -92,9 +92,9 @@ class checkoutComponent extends Component
         }
         $order->payment_method = $this->payment_method;
         $order->total = \Cart::session(auth()->id())->getTotal();
-        //$order->is_paid
+        //$orders->is_paid
 
-        //$order->is_paid
+        //$orders->is_paid
         if ($this->payment_method == 'placetopay') {
         } else {
             //false

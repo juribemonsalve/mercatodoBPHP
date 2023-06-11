@@ -52,11 +52,13 @@
 
 
                 @if(auth()->user())
+
+
                                         <!-- Navigation Links -->
                     @can('user.index')
                         <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                             <x-nav-link :href="route('user.index')" :active="request()->routeIs('user.index')">
-                                {{ __('Users') }}
+                                {{ __('Usuarios') }}
                             </x-nav-link>
                         </div>
                     @endcan
@@ -64,7 +66,7 @@
                     @can('category.index')
                         <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                             <x-nav-link :href="route('category.index')" :active="request()->routeIs('category.index')">
-                                {{ __('Category') }}
+                                {{ __('Categorias') }}
                             </x-nav-link>
                         </div>
                     @endcan
@@ -72,10 +74,20 @@
                     @can('product.index')
                         <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                             <x-nav-link :href="route('product.index')" :active="request()->routeIs('product.index')">
-                                {{ __('Product') }}
+                                {{ __('Productos') }}
                             </x-nav-link>
                         </div>
                     @endcan
+
+
+                    <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                        <x-nav-link :href="route('orders.index')" :active="request()->routeIs('orders.index')">
+                            {{ __('Mis Ordenes') }}
+                        </x-nav-link>
+                    </div>
+
+
+
                 @endif
 
                                 <!-- Navigation Links -->

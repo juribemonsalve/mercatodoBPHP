@@ -15,12 +15,14 @@ return new class() extends Migration {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained('users');
-            $table->string('order_id')->nullable();
+            $table->string('reference_order')->nullable();
+            $table->string('request_id')->nullable();
+            $table->string('process_url')->nullable();
             $table->string('provider');
-            $table->string('url')->nullable();
             $table->unsignedBigInteger('total');
             $table->enum('currency', ['USD', 'COP'])->default('COP');
-            $table->enum('status', ['PENDING', 'COMPLETED', 'CANCELED'])->default('PENDING');
+            $table->enum('status', ['APPROVED', 'PENDING', 'REJECTED', 'APPROVED_PARTIAL', 'PARTIAL_EXPIRED', 'FAILED'])->default('PENDING');
+
             $table->softDeletes();
             $table->timestamps();
         });

@@ -5,7 +5,6 @@ namespace App\Services;
 use App\Domain\Order\OrderCreateAction;
 use App\Domain\Order\OrderGetLastAction;
 use App\Domain\Order\OrderUpdateAction;
-use App\Models\Order;
 use Carbon\Carbon;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Model;
@@ -29,12 +28,11 @@ class PlaceToPayPayment extends PaymentBase
         );
 
         if ($result->ok()) {
-
-            $order->order_id = $result->json()['requestId'];
-            $order->url = $result->json()['processUrl'];
+            $order->request_id = $result->json()['requestId'];
+            $order->process_url = $result->json()['processUrl'];
 
             OrderUpdateAction::execute($order);
-            return redirect()->to($order->url)->send();
+            return redirect()->to($order->process_url)->send();
         }
 
         throw new \Exception($result->body());
@@ -45,10 +43,8 @@ class PlaceToPayPayment extends PaymentBase
         Log::info('[PAY]: Enviamos la notificacion PlaceToPay');
     }
 
-    private function createSession(Model $order, Request $request, string $ipAddress, string $userAgent,): array
+    private function createSession(Model $order, Request $request, string $ipAddress, string $userAgent): array
     {
-
-
         return [
             'auth' => $this->getAuth(),
             'buyer' => [
@@ -60,10 +56,10 @@ class PlaceToPayPayment extends PaymentBase
                 'mobile' => $request->input('mobile'),
             ],
             'payment' => [
-                'reference' => 'reference_'.$order->id,
-                'description' => 'description_order_'.$order->id,
+                'reference' => 'reference_' . $order->reference_order,
+                'description' => 'description_' . $order->reference_order,
                 'amount' => [
-                    'currency' => 'COP',
+                    'currency' => $order->currency,
                     'total' => $order->total,
                 ],
             ],
@@ -97,19 +93,25 @@ class PlaceToPayPayment extends PaymentBase
     {
         $order = OrderGetLastAction::execute();
 
-        $result = Http::post(config('placetopay.url') . "/api/session/$order->order_id",
+        $result = Http::post(
+            config('placetopay.url') . "/api/session/$order->request_id",
             [
             'auth' => $this->getAuth(),
             ]
         );
-
         if ($result->ok()) {
             $status = $result->json()['status']['status'];
+            $order->status = $status; // Asignar el valor de cadena correctamente
+
             if ($status == 'APPROVED') {
                 $order->completed();
             } elseif ($status == 'REJECTED') {
                 $order->canceled();
+            }elseif ($status == 'PENDING') {
+                $order->pending();
             }
+
+            OrderUpdateAction::execute($order);
 
             return view('payments.success', [
                 'processor' => $order->provider,
@@ -118,5 +120,7 @@ class PlaceToPayPayment extends PaymentBase
         }
 
         throw  new \Exception($result->body());
+
+
     }
 }
