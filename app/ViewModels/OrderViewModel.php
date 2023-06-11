@@ -13,4 +13,3 @@ class OrderViewModel extends ViewModel
         return OrderListAction::execute();
     }
 }
-

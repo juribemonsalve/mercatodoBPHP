@@ -96,7 +96,7 @@ class PlaceToPayPayment extends PaymentBase
         $result = Http::post(
             config('placetopay.url') . "/api/session/$order->request_id",
             [
-            'auth' => $this->getAuth(),
+                'auth' => $this->getAuth(),
             ]
         );
         if ($result->ok()) {
@@ -107,7 +107,7 @@ class PlaceToPayPayment extends PaymentBase
                 $order->completed();
             } elseif ($status == 'REJECTED') {
                 $order->canceled();
-            }elseif ($status == 'PENDING') {
+            } elseif ($status == 'PENDING') {
                 $order->pending();
             }
 
@@ -120,7 +120,5 @@ class PlaceToPayPayment extends PaymentBase
         }
 
         throw  new \Exception($result->body());
-
-
     }
 }

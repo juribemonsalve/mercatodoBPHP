@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
+
 class Order extends Model
 {
     use HasFactory;
@@ -21,6 +22,7 @@ class Order extends Model
     protected $fillable = [
         'user_id',
         'reference_order',
+        'item_count',
         'request_id',
         'provider',
         'process_url',
@@ -33,6 +35,7 @@ class Order extends Model
 
         'user_id'=> 'integer',
         'reference_order', 'string',
+        'item_count'=> 'integer',
         'request_id'=> 'integer',
         'provider' => 'string',
         'process_url' => 'string',
@@ -49,20 +52,25 @@ class Order extends Model
     public function completed(): void
     {
         $this->update([
-            'status' => 'APPROVED'
+            'status' => 'APPROVED',
         ]);
     }
-
 
     public function canceled(): void
     {
         $this->update([
-            'status' => 'REJECTED'
+            'status' => 'REJECTED',
         ]);
     }
 
-    public function product(): BelongsTo
+    public function product()
     {
         return $this->belongsTo(Product::class);
+    }
+
+
+    public function orderItems()
+    {
+        return $this->hasMany(OrderItem::class);
     }
 }

@@ -7,8 +7,6 @@ use App\Http\Controllers\profileController;
 use App\Http\Controllers\userController;
 use App\Http\Livewire\Shop\Cart\paymentComponent;
 
-use App\Http\Livewire\Shop\checkoutComponent;
-
 use App\Http\Livewire\Shop\indexComponent;
 use Illuminate\Support\Facades\Route;
 
@@ -34,8 +32,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::middleware(['can:user.index'])->group(function () {
         Route::resource('user', UserController::class);
     })->name('user.index');
-
-
 
     Route::middleware(['can:category.index'])->group(function () {
         Route::resource('/category', CategoryController::class);

@@ -82,33 +82,30 @@
                               </thead>
                               <tbody class="bg-white divide-y divide-gray-200">
                                 @foreach ($cart_items->sortBy('id') as $key => $item)
-                                <tr>
-                                  <td class="px-2 py-2 text-sm text-center text-gray-900">{{ $item->name }}</td>
-                                  <td   class="px-2 py-2 text-sm text-center text-gray-900">
-                                        <input type="number" wire:change="update_quantity({{ $item->id }}, $event.target.value)" class="px-3 py-2 rounded-lg border whitespace-nowrap" value="{{ $item->quantity }}" min="0">
-                                  </td>
-                                  <td class="px-2 py-2 text-sm text-center text-gray-900 whitespace-nowrap">COP {{ number_format(\Cart::get($item->id)->getPriceSum(), 0, ',', '.') }}</td>
-                                  <td class="px-1 py-1 text-sm font-medium text-center">
-                                    <button type="button" wire:click="delete_item({{ $item->id }})" class="px-4 py-2 rounded-lg bg-red-500 text-white">Eliminar</button>
-                                  </td>
-                                </tr>
+                                    <tr>
+                                        <td class="px-2 py-2 text-sm text-center text-gray-900">{{ $item->product->name }}</td>
+                                        <td class="px-2 py-2 text-sm text-center text-gray-900">
+                                            <input type="number" wire:change="update_quantity({{ $item->id }}, $event.target.value)" class="px-3 py-2 rounded-lg border whitespace-nowrap" value="{{ $item->quantity }}" min="0">
+                                        </td>
+                                        <td class="px-2 py-2 text-sm text-center text-gray-900 whitespace-nowrap">COP {{ number_format($item->product->price * $item->quantity, 0, ',', '.') }}</td>
+                                        <td class="px-1 py-1 text-sm font-medium text-center">
+                                            <button type="button" wire:click="delete_item({{ $item->id }})" class="px-4 py-2 rounded-lg bg-red-500 text-white">Eliminar</button>
+                                        </td>
+                                    </tr>
                                 @endforeach
                               </tbody>
                             </table>
-
-                            <input id="total" name="total" type="hidden" value="{{ number_format(\Cart::getTotal(), 0, ',', '.') }}">
 
                         </form>
                     </div>
 
                      <h3 class="px-2 py-1 text-xl font-bold text-black uppercase text-right">
-                        Total: COP {{ number_format(\Cart::getTotal(), 0, ',', '.') }}
+                        Total: COP {{ number_format($total, 0, ',', '.') }}
                      </h3>
 
 
-
                     <div class="px-2 py-1 text-xl font-bold text-black uppercase text-right">
-                        @if (\Cart::getTotal() > 0)
+                        @if ($total > 0)
                             @auth
                                 @if(auth()->user()->email_verified_at)
                                     <div class="mt-1">
