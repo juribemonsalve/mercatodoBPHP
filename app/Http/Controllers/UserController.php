@@ -4,12 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\UserRequest;
 use App\Models\User;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\View\View;
 use Spatie\Permission\Models\Role;
 
 class userController extends controller
 {
-    public function index(Request $request)
+    public function index(Request $request): View
     {
         //
 
@@ -19,7 +21,7 @@ class userController extends controller
             ->orWhere('status', 'LIKE', '%' . $search . '%')
             ->orderBy('id', 'asc')
             ->paginate(10);
-        $data = ['users' => $users, 'search' => $search];
+        $data = ['user' => $users, 'search' => $search];
         return view('user.index', $data);
     }
 
@@ -36,21 +38,21 @@ class userController extends controller
     {
     }
 
-    public function edit($id)
+    public function edit($id): View
     {
         //
         $user = User::findOrFail($id);
         return view('user.edit_user', compact('user'));
     }
 
-    public function update(UserRequest $request, $id)
+    public function update(UserRequest $request, $id): RedirectResponse
     {
         $user = User::find($id);
         $user->fill($request->input())->saveOrFail();
         return redirect('user');
     }
 
-    public function destroy($id)
+    public function destroy($id): RedirectResponse
     {
         $user = User::findOrFail($id);
         $user->delete();

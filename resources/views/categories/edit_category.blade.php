@@ -15,7 +15,7 @@
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body px-4 py-6">
-                            <form action="{{ url('category/' .$category->id) }}" method="post">
+                            <form action="{{ url('categories/' .$category->id) }}" method="post">
                                 @csrf
                                 @method("PATCH")
                                 <input type="hidden" name="id" id="id"  value="{{ $category->id }}" />
@@ -37,7 +37,7 @@
                                     </button>
                                 </div>
                                 <div class="flex items-center justify-center mt-1">
-                                    <a href="{{ url('/category/') }}" class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-gray-600 hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500">
+                                    <a href="{{ url('/categories/') }}" class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-gray-600 hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500">
                                         <i class="fa-solid fa-times mr-2"></i> Cerrar
                                     </a>
                                 </div>

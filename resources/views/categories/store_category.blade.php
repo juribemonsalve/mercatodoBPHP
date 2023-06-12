@@ -20,7 +20,7 @@
                         </div>
                         <div class="modal-body px-4 py-6">
 
-                            <form id="frmNuevo" method="POST" action="{{route('category.store')}}">
+                            <form id="frmNuevo" method="POST" action="{{route('categories.store')}}">
                                 @csrf
                                 <div class="mb-4">
                                     <label for="name" class="block text-sm font-bold text-black">Nombre</label>
@@ -42,7 +42,7 @@
                                     </button>
                                 </div>
                                 <div class="flex items-center justify-center mt-1">
-                                    <a href="{{ url('/category/') }}" class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-gray-600 hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500">
+                                    <a href="{{ url('/categories/') }}" class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-gray-600 hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500">
                                         <i class="fa-solid fa-times mr-2"></i> Cerrar
                                     </a>
                                 </div>

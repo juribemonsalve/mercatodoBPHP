@@ -33,9 +33,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::resource('user', UserController::class);
     })->name('user.index');
 
-    Route::middleware(['can:category.index'])->group(function () {
-        Route::resource('/category', CategoryController::class);
-    })->name('category.index');
+    Route::middleware(['can:categories.index'])->group(function () {
+        Route::resource('/categories', CategoryController::class);
+    })->name('categories.index');
 
     Route::middleware(['can:product.index'])->group(function () {
         Route::resource('product', ProductController::class);

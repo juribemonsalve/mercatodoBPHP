@@ -4,11 +4,12 @@ namespace App\Http\Livewire\Shop;
 
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\View\View;
 use Livewire\Component;
 
 class indexComponent extends Component
 {
-    public function render(Request $request)
+    public function render(Request $request): View
     {
         $search = $request->input('search');
         $products = Product::where('status', 'active')
@@ -20,7 +21,7 @@ class indexComponent extends Component
             ->paginate(9);
 
         $data = [
-            'products' => $products,
+            'product' => $products,
             'search' => $search,
         ];
         return view('livewire.shop.index-component', $data)
@@ -28,7 +29,7 @@ class indexComponent extends Component
             ->section('content');
     }
 
-    public function add_to_cart(Product $product)
+    public function add_to_cart(Product $product): void
     {
         \Cart::add([
             'id' => $product->id,

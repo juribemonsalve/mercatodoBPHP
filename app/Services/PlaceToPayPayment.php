@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Domain\Order\OrderCreateAction;
 use App\Domain\Order\OrderGetLastAction;
 use App\Domain\Order\OrderUpdateAction;
+use App\Enums\OrderStatus;
 use Carbon\Carbon;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Model;
@@ -12,15 +13,11 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
+
 use Illuminate\Support\Str;
-
-use App\Enums\OrderStatus;
-
 
 class PlaceToPayPayment extends PaymentBase
 {
-
-
     public function pay(Request $request): RedirectResponse
     {
         Log::info('[PAY]: Pago con PlaceToPay');
@@ -108,7 +105,6 @@ class PlaceToPayPayment extends PaymentBase
             $status = $result->json()['status']['status'];
             $order->status = $status; // Asignar el valor de cadena correctamente
 
-
             $order->status = OrderStatus::from($status); // Asignar el valor del enum correctamente
             if ($order->status = OrderStatus::APPROVED()) {
                 $order->completed();
@@ -117,9 +113,6 @@ class PlaceToPayPayment extends PaymentBase
             } elseif ($order->status = OrderStatus::PENDING()) {
                 $order->pending();
             }
-
-
-
 
             OrderUpdateAction::execute($order);
 
