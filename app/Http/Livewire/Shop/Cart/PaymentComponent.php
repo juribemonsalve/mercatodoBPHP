@@ -12,6 +12,8 @@ use Illuminate\Http\Request;
 use Illuminate\View\View;
 use Livewire\Component;
 
+use App\Http\Requests\DatePaymentRequest;
+
 class paymentComponent extends Component
 {
     public $total;
@@ -65,7 +67,7 @@ class paymentComponent extends Component
         \Cart::remove($itemId);
     }
 
-    public function processPayment(Request $request, PaymentFactory $paymentFactory)
+    public function processPayment(DatePaymentRequest $request, PaymentFactory $paymentFactory)
     {
         $processor = $paymentFactory->initializePayment($request->get('payment_type'));
         return $processor->pay($request);

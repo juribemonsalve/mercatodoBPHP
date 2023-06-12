@@ -13,6 +13,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
+use App\Http\Requests\DatePaymentRequest;
+
 
 class PlaceToPayPayment extends PaymentBase
 {
@@ -43,8 +45,10 @@ class PlaceToPayPayment extends PaymentBase
         Log::info('[PAY]: Enviamos la notificacion PlaceToPay');
     }
 
-    private function createSession(Model $order, Request $request, string $ipAddress, string $userAgent): array
+    private function createSession(Model $order, string $ipAddress, string $userAgent): array
     {
+
+
         return [
             'auth' => $this->getAuth(),
             'buyer' => [
