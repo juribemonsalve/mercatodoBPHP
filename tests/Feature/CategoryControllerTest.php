@@ -11,7 +11,7 @@ class CategoryControllerTest extends TestCase
 
     public function test_permission_index_category(): void
     {
-        $response = $this->get(route('categories.index'));
+        $response = $this->get(route('category.index'));
         $response->assertRedirect(route('login'));
     }
 }

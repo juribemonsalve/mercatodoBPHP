@@ -5,7 +5,7 @@ namespace App\Http\Livewire\Shop;
 use Illuminate\View\View;
 use Livewire\Component;
 
-class cartComponent extends Component
+class CartComponent extends Component
 {
     public $cart;
     protected $listeners = ['add_to_cart'];

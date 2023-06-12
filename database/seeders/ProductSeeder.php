@@ -7,14 +7,10 @@ use Illuminate\Database\Seeder;
 
 class ProductSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     *
-     * @return void
-     */
-    public function run()
+
+    public function run(): void
     {
         //
-        Product::factory()->count(5)->create();
+        Product::factory()->count(500)->create();
     }
 }

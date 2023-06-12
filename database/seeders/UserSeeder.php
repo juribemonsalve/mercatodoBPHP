@@ -8,12 +8,8 @@ use Illuminate\Support\Str;
 
 class UserSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     *
-     * @return void
-     */
-    public function run()
+
+    public function run(): void
     {
         User::create([
             'documentType' => 'CC',
@@ -43,7 +39,7 @@ class UserSeeder extends Seeder
             'remember_token' => Str::random(10),
         ])->assignRole('Client');
 
-        User::factory(8)->create()->each(
+        User::factory(20)->create()->each(
             function ($user) {
                 $user->assignRole('Client');
             }

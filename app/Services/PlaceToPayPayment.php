@@ -47,6 +47,7 @@ class PlaceToPayPayment extends PaymentBase
 
     private function createSession(Model $order, Request $request, string $ipAddress, string $userAgent): array
     {
+        Log::info('Creacion de session');
         return [
             'auth' => $this->getAuth(),
             'buyer' => [
@@ -93,6 +94,7 @@ class PlaceToPayPayment extends PaymentBase
 
     public function getRequestInformation(): View
     {
+        Log::info('Request con la informacion del pago');
         $order = OrderGetLastAction::execute();
 
         $result = Http::post(

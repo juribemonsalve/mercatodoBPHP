@@ -13,7 +13,7 @@
                     <div class="flex flex-col my-1 w-full">
                       <div class="mx-auto">
                         <div class="flex items-center justify-between my-2 w-full">
-                          <form action="{{ route('categories.index') }}" method="get">
+                          <form action="{{ route('category.index') }}" method="get">
                             <div class="flex items-center w-full">
                               <input type="text" class="w-full px-4 py-2 border border-gray-300 rounded-l-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" name="texto" value="{{$search}}" placeholder="Nombre o Descripción">
                               <button type="submit" class="flex items-center justify-center px-4 py-2 border border-transparent rounded-r-md bg-blue-500 hover:bg-blue-600 text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
@@ -33,7 +33,7 @@
                             <div class="shadow overflow-hidden border-b border-orange-400 sm:rounded-lg">
                                 <div class="table-responsive">
                                     <div class="flex items-center justify-end mb-4">
-                                        <a href="{{ url('/categories/create') }}" class="px-2 py-2 font-bold flex items-center text-white bg-gray-800 rounded-md shadow-md hover:bg-gray-700">
+                                        <a href="{{ url('/category/create') }}" class="px-2 py-2 font-bold flex items-center text-white bg-gray-800 rounded-md shadow-md hover:bg-gray-700">
                                             <i class="fa-solid fa-circle-plus"></i> Añadir Categoría
                                         </a>
                                     </div>
@@ -60,11 +60,11 @@
                                                   <td class="px-2 py-2 text-sm text-center text-gray-900 w-1/6">{{ $category->description}}</td>
                                                   <td class="px-1 py-1 text-sm font-medium text-center">
 
-                                                    <a href="{{ url('/categories/' . $category->id . '/edit') }}" class="text-blue-400 hover:text-orange-500 font-extrabold">
+                                                    <a href="{{ url('/category/' . $category->id . '/edit') }}" class="text-blue-400 hover:text-orange-500 font-extrabold">
                                                       <i class="fa-solid fa-edit"></i>Editar
                                                     </a>
 
-                                                    <form method="POST" action="{{ route('categories.destroy', $category->id) }}">
+                                                    <form method="POST" action="{{ route('category.destroy', $category->id) }}">
                                                         @csrf
                                                         @method('DELETE')
 

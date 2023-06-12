@@ -13,11 +13,12 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 use Livewire\Component;
 
-class paymentComponent extends Component
+class PaymentComponent extends Component
 {
     public $total;
     public function render(): View
     {
+        Log::info('Apertura del carrito');
         $cart_items = \Cart::getContent();
 
         foreach ($cart_items as $item) {
@@ -64,6 +65,7 @@ class paymentComponent extends Component
 
     public function processPayment(DatePaymentRequest $request, PaymentFactory $paymentFactory): RedirectResponse
     {
+        Log::info('Selector de pago');
         $processor = $paymentFactory->initializePayment($request->get('payment_type'));
         return $processor->pay($request);
         /*$this->sendEmail($processor);

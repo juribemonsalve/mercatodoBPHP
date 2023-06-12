@@ -7,9 +7,9 @@ use Illuminate\Http\Request;
 use Illuminate\View\View;
 use Livewire\Component;
 
-class indexComponent extends Component
+class IndexComponent extends Component
 {
-    public function render(Request $request): View
+    public function render(Request $request)
     {
         $search = $request->input('search');
         $products = Product::where('status', 'active')
@@ -21,7 +21,7 @@ class indexComponent extends Component
             ->paginate(9);
 
         $data = [
-            'product' => $products,
+            'products' => $products,
             'search' => $search,
         ];
         return view('livewire.shop.index-component', $data)
@@ -29,7 +29,7 @@ class indexComponent extends Component
             ->section('content');
     }
 
-    public function add_to_cart(Product $product): void
+    public function add_to_cart(Product $product)
     {
         \Cart::add([
             'id' => $product->id,

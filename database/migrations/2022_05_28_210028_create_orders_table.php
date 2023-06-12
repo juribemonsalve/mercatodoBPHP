@@ -19,7 +19,7 @@ return new class() extends Migration {
             $table->enum('currency', ['USD', 'COP'])->default('COP');
             $table->enum('status', ['APPROVED', 'PENDING', 'REJECTED', 'APPROVED_PARTIAL', 'PARTIAL_EXPIRED', 'FAILED'])->default('PENDING');
             $table->softDeletes();
-            $table->foreign('user_id')->on('user')->references('id');
+            $table->foreign('user_id')->on('users')->references('id');
             $table->timestamps();
         });
     }

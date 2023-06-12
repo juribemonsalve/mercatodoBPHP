@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
 use Spatie\Permission\Models\Role;
 
-class productController extends controller
+class ProductController extends controller
 {
     public function index(Request $request): View
     {
@@ -21,7 +21,7 @@ class productController extends controller
         $categories = Category::all();
         $texto = trim($request->get('texto'));
 
-        $products = DB::table('product')
+        $products = DB::table('products')
             ->select('id', 'name', 'description', 'price', 'quantity', 'category_id', 'status', 'cover_img', )
             ->where('name', 'LIKE', '%' . $texto . '%')
             ->orWhere('description', 'LIKE', '%' . $texto . '%')

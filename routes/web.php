@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Controllers\categoryController;
-use App\Http\Controllers\OrderController;
+use App\Http\Controllers\orderController;
 use App\Http\Controllers\productController;
 use App\Http\Controllers\profileController;
 use App\Http\Controllers\userController;
@@ -33,9 +33,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::resource('user', UserController::class);
     })->name('user.index');
 
-    Route::middleware(['can:categories.index'])->group(function () {
-        Route::resource('/categories', CategoryController::class);
-    })->name('categories.index');
+    Route::middleware(['can:category.index'])->group(function () {
+        Route::resource('/category', CategoryController::class);
+    })->name('category.index');
 
     Route::middleware(['can:product.index'])->group(function () {
         Route::resource('product', ProductController::class);
@@ -49,7 +49,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::put('/user/{id}', [UserController::class, 'update'])->name('user.update');
     Route::delete('/user/{id}', [UserController::class, 'destroy'])->name('user.destroy');
 
-    Route::resource('orders', OrderController::class)->only(['index']);
+    Route::resource('orders', orderController::class)->only(['index']);
 
     Route::post('payments', [PaymentComponent::class, 'processPayment'])->name('payments.processPayment');
     Route::get('payments/payment/response', [PaymentComponent::class, 'processResponse'])->name('payments.processResponse');

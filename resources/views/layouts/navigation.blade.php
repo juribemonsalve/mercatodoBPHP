@@ -63,9 +63,9 @@
                         </div>
                     @endcan
 
-                    @can('categories.index')
+                    @can('category.index')
                         <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                            <x-nav-link :href="route('categories.index')" :active="request()->routeIs('categories.index')">
+                            <x-nav-link :href="route('category.index')" :active="request()->routeIs('category.index')">
                                 {{ __('Categorias') }}
                             </x-nav-link>
                         </div>
@@ -211,8 +211,8 @@
                                         {{ __('Users') }}
                                     </x-responsive-nav-link>
                                 @endcan
-                                @can('categories.index')
-                                    <x-responsive-nav-link :href="route('categories.index')">
+                                @can('category.index')
+                                    <x-responsive-nav-link :href="route('category.index')">
                                         {{ __('Category') }}
                                     </x-responsive-nav-link>
                                 @endcan

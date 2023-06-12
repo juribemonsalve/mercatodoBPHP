@@ -6,15 +6,12 @@ namespace Database\Seeders;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Database\Seeder;
-
+use App\Models\Role;
+use App\Models\Product;
 class DatabaseSeeder extends Seeder
 {
-    /**
-     * Seed the application's database.
-     *
-     * @return void
-     */
-    public function run()
+
+    public function run(): void
     {
         //Roles y permisos
         $this->call(RoleSeeder::class);

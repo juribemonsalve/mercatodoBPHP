@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\View\View;
 use Spatie\Permission\Models\Role;
 
-class userController extends controller
+class UserController extends controller
 {
     public function index(Request $request): View
     {
@@ -21,7 +21,7 @@ class userController extends controller
             ->orWhere('status', 'LIKE', '%' . $search . '%')
             ->orderBy('id', 'asc')
             ->paginate(10);
-        $data = ['user' => $users, 'search' => $search];
+        $data = ['users' => $users, 'search' => $search];
         return view('user.index', $data);
     }
 

@@ -11,7 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\View\View;
 use Spatie\Permission\Models\Role;
 
-class categoryController extends Controller
+class CategoryController extends Controller
 {
     public function index(Request $request): View
     {
@@ -24,19 +24,19 @@ class categoryController extends Controller
             ->orderBy('id', 'asc')
             ->paginate(10);
         $data = ['categories' => $categories, 'search' => $search];
-        return view('categories.index', $data);
+        return view('category.index', $data);
     }
 
     public function create(): View
     {
-        return view('categories.store_category');
+        return view('category.store_category');
     }
 
     public function store(CategoryRequest $request): RedirectResponse
     {
         $category = new Category($request->input());
         $category->save();
-        return redirect('categories')->with('flash_message', 'Categoria creada!');
+        return redirect('category')->with('flash_message', 'Categoria creada!');
     }
 
     public function show($id)
@@ -46,7 +46,7 @@ class categoryController extends Controller
     public function edit($id): View
     {
         $category = Category::findOrFail($id);
-        return view('categories.edit_category', compact('category'));
+        return view('category.edit_category', compact('category'));
     }
 
     public function update(CategoryRequest $request, $id): RedirectResponse
@@ -54,7 +54,7 @@ class categoryController extends Controller
         //
         $category = Category::find($id);
         $category->fill($request->input())->saveOrFail();
-        return redirect('categories');
+        return redirect('category');
     }
 
     public function destroy($id): RedirectResponse
