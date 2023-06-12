@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Shop;
 
+use Illuminate\View\View;
 use Livewire\Component;
 
 class cartComponent extends Component
@@ -11,7 +12,7 @@ class cartComponent extends Component
     public function add_to_cart()
     {
     }
-    public function render()
+    public function render(): View
     {
         return view('livewire.shop.cart-component');
     }

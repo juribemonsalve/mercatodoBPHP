@@ -22,7 +22,7 @@ class RoleSeeder extends Seeder
         $client = Role::create(['name'=>'Client']);
 
         Permission::create(['name'=>'user.index'])->syncRoles([$admin]);
-        Permission::create(['name'=>'category.index'])->syncRoles([$admin]);
+        Permission::create(['name'=>'categories.index'])->syncRoles([$admin]);
         Permission::create(['name'=>'product.index'])->syncRoles([$admin]);
 
         Permission::create(['name'=>'dashboard'])->syncRoles([$client]);

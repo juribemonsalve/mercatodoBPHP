@@ -6,12 +6,14 @@ use App\Http\Requests\CategoryRequest;
 use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Database\QueryException;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\View\View;
 use Spatie\Permission\Models\Role;
 
 class categoryController extends Controller
 {
-    public function index(Request $request)
+    public function index(Request $request): View
     {
         $roles = Role::all();
         $products = Product::all();
@@ -22,40 +24,40 @@ class categoryController extends Controller
             ->orderBy('id', 'asc')
             ->paginate(10);
         $data = ['categories' => $categories, 'search' => $search];
-        return view('category.index', $data);
+        return view('categories.index', $data);
     }
 
-    public function create()
+    public function create(): View
     {
-        return view('category.store_category');
+        return view('categories.store_category');
     }
 
-    public function store(CategoryRequest $request)
+    public function store(CategoryRequest $request): RedirectResponse
     {
         $category = new Category($request->input());
         $category->save();
-        return redirect('category')->with('flash_message', 'Categoria creada!');
+        return redirect('categories')->with('flash_message', 'Categoria creada!');
     }
 
     public function show($id)
     {
     }
 
-    public function edit($id)
+    public function edit($id): View
     {
         $category = Category::findOrFail($id);
-        return view('category.edit_category', compact('category'));
+        return view('categories.edit_category', compact('category'));
     }
 
-    public function update(CategoryRequest $request, $id)
+    public function update(CategoryRequest $request, $id): RedirectResponse
     {
         //
         $category = Category::find($id);
         $category->fill($request->input())->saveOrFail();
-        return redirect('category');
+        return redirect('categories');
     }
 
-    public function destroy($id)
+    public function destroy($id): RedirectResponse
     {
         try {
             $products = Product::where('category_id', $id)->exists();

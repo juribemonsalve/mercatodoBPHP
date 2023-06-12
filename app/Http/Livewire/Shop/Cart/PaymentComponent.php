@@ -2,22 +2,21 @@
 
 namespace App\Http\Livewire\Shop\Cart;
 
+use App\Http\Requests\DatePaymentRequest;
+use App\Models\Order;
+use App\Models\Product;
 use App\Services\PaymentBase;
 use App\Services\PaymentFactory;
 use App\Services\PlaceToPayPayment;
-use App\Models\Product;
-use App\Models\Order;
 use App\ViewModels\PaymentModel;
-use Illuminate\Http\Request;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 use Livewire\Component;
-
-use App\Http\Requests\DatePaymentRequest;
 
 class paymentComponent extends Component
 {
     public $total;
-    public function render()
+    public function render(): View
     {
         $cart_items = \Cart::getContent();
 
@@ -26,7 +25,6 @@ class paymentComponent extends Component
             $item->product = $product;
         }
         $this->refreshTotal(); // Actualizar el valor total
-
 
         $paymentModel = new PaymentModel($cart_items);
         $paymentProcessors = $paymentModel->paymentProcessors();
@@ -37,8 +35,7 @@ class paymentComponent extends Component
             ->section('content');
     }
 
-
-    public function refreshTotal()
+    public function refreshTotal(): float
     {
         $cart_items = \Cart::getContent();
         $this->total = $cart_items->sum(function ($item) {
@@ -46,7 +43,6 @@ class paymentComponent extends Component
             return $product->price * $item->quantity;
         });
         return $this->total;
-
     }
 
     public function update_quantity($itemId, $quantity): void
@@ -59,15 +55,14 @@ class paymentComponent extends Component
         ]);
 
         $this->refreshTotal();
-
     }
 
-    public function delete_item($itemId)
+    public function delete_item($itemId): void
     {
         \Cart::remove($itemId);
     }
 
-    public function processPayment(DatePaymentRequest $request, PaymentFactory $paymentFactory)
+    public function processPayment(DatePaymentRequest $request, PaymentFactory $paymentFactory): RedirectResponse
     {
         $processor = $paymentFactory->initializePayment($request->get('payment_type'));
         return $processor->pay($request);
@@ -83,7 +78,7 @@ class paymentComponent extends Component
         $base->sendNotification();
     }
 
-    public function processResponse(PlaceToPayPayment $placeToPayPayment)
+    public function processResponse(PlaceToPayPayment $placeToPayPayment): View
     {
         return $placeToPayPayment->getRequestInformation();
     }
