@@ -13,11 +13,14 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
-use App\Http\Requests\DatePaymentRequest;
+
+use App\Enums\OrderStatus;
 
 
 class PlaceToPayPayment extends PaymentBase
 {
+
+
     public function pay(Request $request): RedirectResponse
     {
         Log::info('[PAY]: Pago con PlaceToPay');
@@ -45,10 +48,8 @@ class PlaceToPayPayment extends PaymentBase
         Log::info('[PAY]: Enviamos la notificacion PlaceToPay');
     }
 
-    private function createSession(Model $order, string $ipAddress, string $userAgent): array
+    private function createSession(Model $order, Request $request, string $ipAddress, string $userAgent): array
     {
-
-
         return [
             'auth' => $this->getAuth(),
             'buyer' => [
@@ -107,13 +108,18 @@ class PlaceToPayPayment extends PaymentBase
             $status = $result->json()['status']['status'];
             $order->status = $status; // Asignar el valor de cadena correctamente
 
-            if ($status == 'APPROVED') {
+
+            $order->status = OrderStatus::from($status); // Asignar el valor del enum correctamente
+            if ($order->status = OrderStatus::APPROVED()) {
                 $order->completed();
-            } elseif ($status == 'REJECTED') {
+            } elseif ($order->status = OrderStatus::REJECTED()) {
                 $order->canceled();
-            } elseif ($status == 'PENDING') {
+            } elseif ($order->status = OrderStatus::PENDING()) {
                 $order->pending();
             }
+
+
+
 
             OrderUpdateAction::execute($order);
 
