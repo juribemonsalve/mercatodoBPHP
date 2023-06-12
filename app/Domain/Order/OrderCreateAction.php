@@ -5,12 +5,15 @@ namespace App\Domain\Order;
 use App\Http\Livewire\Shop\Cart\paymentComponent;
 use App\Models\Order;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Log;
 use Livewire\Component;
+
 
 class OrderCreateAction extends Component
 {
     public static function execute(array $data): Model
     {
+        Log::info('Creacion de la Orden');
         $paymentComponent = new paymentComponent();
         $total = $paymentComponent->refreshTotal();
         $item_count = \Cart::getContent()->count();

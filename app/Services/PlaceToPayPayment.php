@@ -94,7 +94,7 @@ class PlaceToPayPayment extends PaymentBase
 
     public function getRequestInformation(): View
     {
-        Log::info('Request con la informacion del pago');
+
         $order = OrderGetLastAction::execute();
 
         $result = Http::post(
