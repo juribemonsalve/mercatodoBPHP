@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
 use App\Http\Requests\ProductRequest;
 use App\Models\Category;
 use App\Models\Product;
-use Illuminate\Http\Request;
+
 use Illuminate\Support\Facades\DB;
 use Spatie\Permission\Models\Role;
+use App\Http\Requests\DatePaymentRequest;
 
 class productController extends controller
 {

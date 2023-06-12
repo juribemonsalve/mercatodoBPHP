@@ -12,7 +12,7 @@ class PaymentFactory implements PaymentFactoryInterface
         if ($type == 'PlaceToPay') {
             return new PlaceToPayPayment();
         } elseif ($type == 'PayPal') {
-            return new PayPalPayment();
+            throw new Exception('Medio de pago no soportado');
         }
 
         throw new Exception('Medio de pago no soportado');
