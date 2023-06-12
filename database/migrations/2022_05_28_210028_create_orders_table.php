@@ -14,7 +14,7 @@ return new class() extends Migration {
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained('users');
+            $table->unsignedBigInteger('user_id');
             $table->string('reference_order')->nullable();
             $table->integer('item_count');
             $table->string('request_id')->nullable();
@@ -23,8 +23,8 @@ return new class() extends Migration {
             $table->unsignedBigInteger('total');
             $table->enum('currency', ['USD', 'COP'])->default('COP');
             $table->enum('status', ['APPROVED', 'PENDING', 'REJECTED', 'APPROVED_PARTIAL', 'PARTIAL_EXPIRED', 'FAILED'])->default('PENDING');
-
             $table->softDeletes();
+            $table->foreign('user_id')->on('users')->references('id');
             $table->timestamps();
         });
     }

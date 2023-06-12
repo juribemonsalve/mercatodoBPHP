@@ -75,7 +75,7 @@ class PlaceToPayPayment extends PaymentBase
         ];
     }
 
-    private function getAuth(): array
+    public function getAuth(): array
     {
         $nonce = Str::random();
         $seed = date('c');

@@ -12,13 +12,9 @@ class OrderCreateAction extends Component
     public static function execute(array $data): Model
     {
 
-
-
             $paymentComponent = new paymentComponent();
             $total = $paymentComponent->refreshTotal();
-
             $item_count = \Cart::getContent()->count();
-
             $cartItems = \Cart::getContent();
 
             $order = Order::create([
@@ -28,7 +24,6 @@ class OrderCreateAction extends Component
                 'item_count' => $item_count,
                 'currency' => 'COP',
             ]);
-
 
             $order->reference_order = 'ORDEN-' . str_pad($order->id, 5, '0', STR_PAD_LEFT);
             $order->save();
@@ -42,6 +37,5 @@ class OrderCreateAction extends Component
             }
 
             return $order;
-
     }
 }
