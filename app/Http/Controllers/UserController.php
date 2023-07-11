@@ -7,9 +7,14 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
 
-class userController extends controller
+
+use Illuminate\Http\RedirectResponse;
+use Illuminate\View\View;
+
+
+class UserController extends controller
 {
-    public function index(Request $request)
+    public function index(Request $request): View
     {
         //
 
@@ -36,21 +41,21 @@ class userController extends controller
     {
     }
 
-    public function edit($id)
+    public function edit($id): View
     {
         //
         $user = User::findOrFail($id);
         return view('user.edit_user', compact('user'));
     }
 
-    public function update(UserRequest $request, $id)
+    public function update(UserRequest $request, $id): RedirectResponse
     {
         $user = User::find($id);
         $user->fill($request->input())->saveOrFail();
         return redirect('user');
     }
 
-    public function destroy($id)
+    public function destroy($id): RedirectResponse
     {
         $user = User::findOrFail($id);
         $user->delete();

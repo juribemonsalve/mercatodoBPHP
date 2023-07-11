@@ -12,6 +12,9 @@
         "laravel/sanctum": "^3.0",
         "laravel/tinker": "^2.7",
         "livewire/livewire": "^2.12",
+        "maatwebsite/excel": "^3.1",
+        "nesbot/carbon": "^2.68",
+        "phpoffice/phpspreadsheet": "^1.29",
         "spatie/laravel-enum": "^3.0",
         "spatie/laravel-permission": "^5.10",
         "spatie/laravel-view-models": "^1.5"

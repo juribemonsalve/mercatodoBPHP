@@ -9,7 +9,7 @@ use App\Http\Livewire\Shop\Cart\paymentComponent;
 
 use App\Http\Livewire\Shop\indexComponent;
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\Exports\ExportProductController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -40,6 +40,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::middleware(['can:product.index'])->group(function () {
         Route::resource('product', ProductController::class);
     })->name('product.index');
+
+    Route::get('/products/export', [ExportProductController::class, 'export'])->name('products.export');
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');

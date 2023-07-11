@@ -4,11 +4,13 @@ namespace App\Http\Livewire\Shop;
 
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\View\View;
 use Livewire\Component;
+use Illuminate\Contracts\Cache\Repository;
 
-class indexComponent extends Component
+class IndexComponent extends Component
 {
-    public function render(Request $request)
+    public function render(Request $request): View
     {
         $search = $request->input('search');
         $products = Product::where('status', 'active')

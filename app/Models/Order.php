@@ -56,6 +56,13 @@ class Order extends Model
         ]);
     }
 
+    public function pending(): void
+    {
+        $this->update([
+            'status' => 'PENDING',
+        ]);
+    }
+
     public function canceled(): void
     {
         $this->update([

@@ -8,10 +8,13 @@ use App\Models\Product;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
+use Illuminate\View\View;
+use Illuminate\Http\RedirectResponse;
 
-class categoryController extends Controller
+
+class CategoryController extends Controller
 {
-    public function index(Request $request)
+    public function index(Request $request): View
     {
         $roles = Role::all();
         $products = Product::all();
@@ -25,12 +28,12 @@ class categoryController extends Controller
         return view('category.index', $data);
     }
 
-    public function create()
+    public function create(): View
     {
         return view('category.store_category');
     }
 
-    public function store(CategoryRequest $request)
+    public function store(CategoryRequest $request): RedirectResponse
     {
         $category = new Category($request->input());
         $category->save();
@@ -41,13 +44,13 @@ class categoryController extends Controller
     {
     }
 
-    public function edit($id)
+    public function edit($id): View
     {
         $category = Category::findOrFail($id);
         return view('category.edit_category', compact('category'));
     }
 
-    public function update(CategoryRequest $request, $id)
+    public function update(CategoryRequest $request, $id): RedirectResponse
     {
         //
         $category = Category::find($id);
@@ -55,7 +58,7 @@ class categoryController extends Controller
         return redirect('category');
     }
 
-    public function destroy($id)
+    public function destroy($id): RedirectResponse
     {
         try {
             $products = Product::where('category_id', $id)->exists();

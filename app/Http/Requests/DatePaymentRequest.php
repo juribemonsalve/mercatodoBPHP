@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class ProductRequest extends FormRequest
+class DatePaymentRequest extends FormRequest
 {
 
     public function authorize(): bool
@@ -20,12 +20,12 @@ class ProductRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required',
-            'description' => 'required',
-            'price' => 'required|integer',
-            'quantity' => 'required|integer',
-            'category_id' => 'required',
-            'status' => 'required|in:active,disabled',
+            'documentType' => 'required|in:CC,CE,TI,NIT,RUT',
+            'document' => 'required|integer|min:5',
+            'name' => 'required|regex:/^[a-zA-Z\s]+$/',
+            'surname' => 'required|regex:/^[a-zA-Z\s]+$/',
+            'email' => ['required', 'string', 'email', 'max:255'],
+            'mobile' => 'required|integer',
         ];
     }
 
@@ -48,7 +48,6 @@ class ProductRequest extends FormRequest
             'address.required' => 'El campo Información de dirección es obligatorio.',
             'address.max' => 'El campo Información de dirección no puede exceder los :max caracteres.',
             'address.regex' => 'El campo Información de dirección solo puede contener letras y espacios.',
-            'payment_method.required' => 'El campo Medio de Pago es obligatorio.',
         ];
     }
 }

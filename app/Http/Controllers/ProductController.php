@@ -11,9 +11,15 @@ use Illuminate\Support\Facades\DB;
 use Spatie\Permission\Models\Role;
 use App\Http\Requests\DatePaymentRequest;
 
-class productController extends controller
+
+
+use Illuminate\Http\RedirectResponse;
+use Illuminate\View\View;
+
+
+class ProductController extends controller
 {
-    public function index(Request $request)
+    public function index(Request $request): View
     {
         //
         $roles = Role::all();
@@ -29,7 +35,7 @@ class productController extends controller
         return view('product.index', compact('products', 'categories', 'texto'));
     }
 
-    public function create()
+    public function create(): View
     {
         //
         $categories = Category::all(); // Obtener todas las categorías disponibles
@@ -37,7 +43,7 @@ class productController extends controller
         return view('product.store_product', compact('product', 'categories'));
     }
 
-    public function store(ProductRequest $request)
+    public function store(ProductRequest $request): RedirectResponse
     {
         $categories = Category::all();
         $product = new Product($request->input());
@@ -45,28 +51,28 @@ class productController extends controller
         return redirect('product', compact('product', 'categories'));
     }
 
-    public function show($id)
+    public function show($id): View
     {
         //
         $product = Product::find($id);
         return view('product.index', compact('product'));
     }
 
-    public function edit($id)
+    public function edit($id): View
     {
         $categories = Category::all();
         $product = Product::findOrFail($id);
         return view('product.edit_product', compact('product', 'categories'));
     }
 
-    public function update(ProductRequest $request, $id)
+    public function update(ProductRequest $request, $id): RedirectResponse
     {
         $product = Product::find($id);
         $categories = Category::all();
         $product->fill($request->input())->saveOrFail();
         return redirect('product');
     }
-    public function destroy($id)
+    public function destroy($id): RedirectResponse
     {
         $product = Product::findOrFail($id);
         $product->delete();

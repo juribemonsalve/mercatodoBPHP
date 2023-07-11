@@ -11,13 +11,14 @@ use App\ViewModels\PaymentModel;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 use Livewire\Component;
+use Illuminate\Http\RedirectResponse;
 
 use App\Http\Requests\DatePaymentRequest;
 
-class paymentComponent extends Component
+class PaymentComponent extends Component
 {
     public $total;
-    public function render()
+    public function render(): View
     {
         $cart_items = \Cart::getContent();
 
@@ -38,7 +39,7 @@ class paymentComponent extends Component
     }
 
 
-    public function refreshTotal()
+    public function refreshTotal(): float
     {
         $cart_items = \Cart::getContent();
         $this->total = $cart_items->sum(function ($item) {
@@ -67,7 +68,7 @@ class paymentComponent extends Component
         \Cart::remove($itemId);
     }
 
-    public function processPayment(DatePaymentRequest $request, PaymentFactory $paymentFactory)
+    public function processPayment(DatePaymentRequest $request, PaymentFactory $paymentFactory): RedirectResponse
     {
         $processor = $paymentFactory->initializePayment($request->get('payment_type'));
         return $processor->pay($request);
@@ -83,7 +84,7 @@ class paymentComponent extends Component
         $base->sendNotification();
     }
 
-    public function processResponse(PlaceToPayPayment $placeToPayPayment)
+    public function processResponse(PlaceToPayPayment $placeToPayPayment): View
     {
         return $placeToPayPayment->getRequestInformation();
     }
