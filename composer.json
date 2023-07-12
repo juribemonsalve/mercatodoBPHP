@@ -20,6 +20,7 @@
         "spatie/laravel-view-models": "^1.5"
     },
     "require-dev": {
+        "barryvdh/laravel-debugbar": "^3.8",
         "beyondcode/laravel-dump-server": "^1.9",
         "fakerphp/faker": "^1.21",
         "friendsofphp/php-cs-fixer": "^3.16",

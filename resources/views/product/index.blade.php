@@ -39,22 +39,22 @@
                                     <div class="flex">
                                       <div class="w-1/2">
                                         <div class="flex">
-                                          <form action="{{ url('product/import') }}" method="post" enctype="multipart/form-data" class="flex">
-                                            @csrf
-                                            <div class="flex flex-wrap">
-                                              <div class="px-4">
-                                                <input type="file" name="document" class="border border-gray-300 rounded-l px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
-                                              </div>
-                                              <div class="px-4">
-                                                <button class="flex items-center px-4 py-2 text-white bg-blue-600 rounded-l-none rounded-r-md shadow-md hover:bg-blue-700" type="submit">
-                                                  <span class="mr-2 fa-solid fa-circle-plus"></span>
-                                                  Import
-                                                </button>
-
-                                              </div>
-                                            </div>
-                                          </form>
+                                            <form action="{{ route('products.import') }}" method="post" enctype="multipart/form-data" class="flex">
+                                                @csrf
+                                                <div class="flex flex-wrap">
+                                                    <div class="px-4">
+                                                        <input type="file" name="document" class="border border-gray-300 rounded-l px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                                    </div>
+                                                    <div class="px-4">
+                                                        <button class="flex items-center px-4 py-2 text-white bg-blue-600 rounded-l-none rounded-r-md shadow-md hover:bg-blue-700" type="submit">
+                                                            <span class="mr-2 fa-solid fa-circle-plus"></span>
+                                                            Import
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </form>
                                         </div>
+
                                         <div class="flex justify-start px-3">
                                           <form action="{{ route('products.export') }}" method="get" enctype="multipart/form-data" class="px-2">
                                             @csrf
@@ -66,9 +66,21 @@
                                         </div>
                                       </div>
                                     </div>
+                                    @if(session('message'))
+                                            <div class="bg-green-500 text-white px-2 py-2 mt-2">
+                                                {{ session('message') }}
+                                            </div>
+                                    @endif
 
-
-
+                                    @if ($errors->any())
+                                            <div class="bg-red-500 text-white px-2 py-2">
+                                                <ul>
+                                                    @foreach ($errors->all() as $error)
+                                                        <li>{{ $error }}</li>
+                                                    @endforeach
+                                                </ul>
+                                            </div>
+                                    @endif
 
 
                                     <div class="flex items-center justify-end mb-4">
