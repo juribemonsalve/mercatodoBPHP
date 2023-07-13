@@ -51,4 +51,5 @@ class ProductsExport implements FromCollection, Responsable, WithHeadings, Shoul
             1    => ['font' => ['bold' => true]],
         ];
     }
+
 }

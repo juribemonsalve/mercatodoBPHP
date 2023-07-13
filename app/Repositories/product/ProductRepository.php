@@ -12,17 +12,23 @@ use Illuminate\Support\Facades\Log;
 use PhpParser\Node\Expr\Array_;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Illuminate\Http\UploadedFile;
-
+use Illuminate\Support\Facades\Storage;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ProductRepository
 {
-    public function productsExport(): BinaryFileResponse
+    public function productsExport(): string
     {
         $now = Carbon::now('America/Bogota');
         $fileName = 'products_' . $now->format('Ymd_His') . '.xlsx';
 
+        $filePath = 'exports/' . $fileName;
+
+        Excel::store(new ProductsExport(), $filePath, 'public');
+
         Log::channel('contlog')->info('The user ' . Auth::user()->name . ' ' . Auth::user()->surname . ' has exported a list of products');
-        return (new ProductsExport())->download($fileName);
+
+        return $filePath;
     }
 
     public function productsImport(Request $request): Array

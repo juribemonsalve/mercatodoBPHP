@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Repositories\product\ProductRepository;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
+use Illuminate\Support\Facades\Storage;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ExportProductController extends Controller
 {
@@ -16,12 +18,23 @@ class ExportProductController extends Controller
         $this->productRepo = $productRepository;
     }
 
-    public function export(): BinaryFileResponse
+
+
+    public function export()
     {
         // $this->authorize('products.export');  (Comentario: Si tienes autorización habilitada, descomenta esta línea)
 
-        return $this->productRepo->productsExport();
+        $filePath = $this->productRepo->productsExport();
 
-        //return redirect()->route('admin.product.index')->with('success', 'The export is being generated');
+        $fullPath = storage_path('app/public/' . $filePath);
+
+        return response()->download($fullPath)->deleteFileAfterSend(true);
+    }
+
+    public function download($filePath)
+    {
+        $fullPath = Storage::disk('public')->path($filePath);
+
+        return response()->download($fullPath);
     }
 }

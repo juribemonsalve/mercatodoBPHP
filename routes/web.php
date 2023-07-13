@@ -45,6 +45,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/products/export', [ExportProductController::class, 'export'])->name('products.export');
 
     Route::post('products/import/', [ImportProductController::class, 'import'])->name('products.import');
+    Route::get('/download/{filePath}', [ExportProductController::class, 'download'])->name('products.download');
+
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
