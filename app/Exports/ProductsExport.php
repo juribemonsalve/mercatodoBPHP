@@ -14,12 +14,24 @@ use Maatwebsite\Excel\Concerns\WithStyles;
 use Maatwebsite\Excel\Excel;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
+use Carbon\Carbon;
+use Illuminate\Support\Facades\Storage;
+
+
 
 class ProductsExport implements FromCollection, Responsable, WithHeadings, ShouldAutoSize, WithStyles, ShouldQueue
 {
     use Exportable;
 
-    private $fileName = 'Products.xlsx';
+    private $fileName;
+
+    public function __construct(string $fileName)
+    {
+        $this->fileName = $fileName;
+    }
+
+
+
 
     private $writerType = Excel::XLSX;
 
@@ -48,7 +60,7 @@ class ProductsExport implements FromCollection, Responsable, WithHeadings, Shoul
     public function styles(Worksheet $sheet): array
     {
         return [
-            1    => ['font' => ['bold' => true]],
+            1 => ['font' => ['bold' => true]],
         ];
     }
 

@@ -56,14 +56,15 @@
                                         </div>
 
                                         <div class="flex justify-start px-3">
-                                          <form action="{{ route('products.export') }}" method="get" enctype="multipart/form-data" class="px-2">
-                                            @csrf
-                                            <button class="flex items-center px-4 py-2 text-white bg-green-500 rounded-md shadow-md hover:bg-green-600" type="submit">
-                                              <span class="mr-2 fa-solid fa-file-excel"></span>
-                                              Export
-                                            </button>
-                                          </form>
+                                            <form action="{{ route('products.export') }}" method="get" enctype="multipart/form-data" class="px-2">
+                                                @csrf
+                                                <button class="flex items-center px-4 py-2 text-white bg-green-500 rounded-md shadow-md hover:bg-green-600" type="submit">
+                                                    <span class="mr-2 fa-solid fa-file-excel"></span>
+                                                    Export
+                                                </button>
+                                            </form>
                                         </div>
+
                                       </div>
                                     </div>
                                     @if(session('message'))

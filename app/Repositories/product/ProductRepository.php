@@ -15,21 +15,10 @@ use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
 use Maatwebsite\Excel\Facades\Excel;
 
+use Illuminate\Support\Str;
+
 class ProductRepository
 {
-    public function productsExport(): string
-    {
-        $now = Carbon::now('America/Bogota');
-        $fileName = 'products_' . $now->format('Ymd_His') . '.xlsx';
-
-        $filePath = 'exports/' . $fileName;
-
-        Excel::store(new ProductsExport(), $filePath, 'public');
-
-        Log::channel('contlog')->info('The user ' . Auth::user()->name . ' ' . Auth::user()->surname . ' has exported a list of products');
-
-        return $filePath;
-    }
 
     public function productsImport(Request $request): Array
     {

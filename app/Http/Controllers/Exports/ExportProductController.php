@@ -8,28 +8,22 @@ use App\Repositories\product\ProductRepository;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Illuminate\Support\Facades\Storage;
 use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\ProductsExport;
+use App\Jobs\ExportProductsJob;
 
 class ExportProductController extends Controller
 {
     protected $productRepo;
 
-    public function __construct(ProductRepository $productRepository)
-    {
-        $this->productRepo = $productRepository;
-    }
-
-
-
     public function export()
     {
         // $this->authorize('products.export');  (Comentario: Si tienes autorización habilitada, descomenta esta línea)
 
-        $filePath = $this->productRepo->productsExport();
+        ExportProductsJob::dispatch();
 
-        $fullPath = storage_path('app/public/' . $filePath);
-
-        return response()->download($fullPath)->deleteFileAfterSend(true);
+        return redirect()->back()->with('success', 'Export job dispatched successfully.');
     }
+
 
     public function download($filePath)
     {
