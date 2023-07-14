@@ -83,12 +83,12 @@ class ProductsImport implements ToCollection, WithChunkReading, WithValidation, 
     public function customValidationMessages(): array
     {
         return [
-            'id' => 'The id is required and must be of type numeric',
-            'description' => 'The description is required with a minimum of 10 and a maximum of 250 characters',
-            'price' => 'The price is required and must be a number greater than 0',
-            'quantity' => 'The amount is required and must be a number greater than or equal to 0',
-            'category_id' => 'The category id is required and must exist',
-            'status' => 'The status of the product is required and must be new or used',
+                'id' => 'El campo id es requerido y debe ser de tipo numérico',
+                'description' => 'El campo descripción es requerido y debe tener entre 10 y 250 caracteres',
+                'price' => 'El campo precio es requerido y debe ser un número mayor que 0',
+                'quantity' => 'El campo cantidad es requerido y debe ser un número mayor o igual a 0',
+                'category_id' => 'El campo id de categoría es requerido y debe existir',
+                'status' => 'El campo estado del producto es requerido y debe ser nuevo o usado',
         ];
     }
 }

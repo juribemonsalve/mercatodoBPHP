@@ -10,6 +10,7 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Storage;
 use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Support\Facades\Session;
 
 class ExportProductsJob implements ShouldQueue
 {
@@ -22,6 +23,7 @@ class ExportProductsJob implements ShouldQueue
         $filePath = 'exports/' . $fileName;
 
         Excel::store(new ProductsExport($fileName), $filePath, 'public');
+        Session::put('exported_file', $fileName);
         // Puedes agregar cualquier lógica adicional aquí, como registros o notificaciones
         // Elimina el trabajo de la cola después de haber sido procesado
         $this->delete();

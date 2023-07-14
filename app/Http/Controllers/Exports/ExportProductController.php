@@ -13,7 +13,6 @@ use App\Jobs\ExportProductsJob;
 
 class ExportProductController extends Controller
 {
-    protected $productRepo;
 
     public function export()
     {

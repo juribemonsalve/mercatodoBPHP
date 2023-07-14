@@ -44,6 +44,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::get('/products/export', [ExportProductController::class, 'export'])->name('products.export');
 
+
+
+    Route::get('/products/export/{fileName}', [ProductController::class, 'downloadExport'])->name('products.downloadExport');
+
+
     Route::post('products/import/', [ImportProductController::class, 'import'])->name('products.import');
 
 

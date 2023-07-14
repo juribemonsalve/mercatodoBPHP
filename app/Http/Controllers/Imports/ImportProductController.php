@@ -22,7 +22,7 @@ class ImportProductController extends Controller
         $response = $this->productRepo->productsImport($request);
 
         if ($response['success']) {
-            return back()->with('message', 'Importe realizado');
+            return back()->with('message', '¡Importe realizado con éxito!');
         } else {
             return back()->withErrors($response['failures'])->withInput();
         }

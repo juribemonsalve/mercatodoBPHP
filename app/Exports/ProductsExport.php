@@ -32,7 +32,6 @@ class ProductsExport implements FromCollection, Responsable, WithHeadings, Shoul
 
 
 
-
     private $writerType = Excel::XLSX;
 
     private $headers = [

@@ -11,11 +11,12 @@ use Illuminate\Support\Facades\DB;
 use Spatie\Permission\Models\Role;
 use App\Http\Requests\DatePaymentRequest;
 
-
-
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Storage;
+use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class ProductController extends controller
 {
@@ -33,6 +34,16 @@ class ProductController extends controller
             ->orderBy('id', 'asc')
             ->paginate(10);
         return view('product.index', compact('products', 'categories', 'texto'));
+    }
+    public function downloadExport($fileName)
+    {
+        $filePath = 'exports/' . $fileName;
+
+        if (Storage::disk('public')->exists($filePath)) {
+            return Storage::disk('public')->download($filePath);
+        }
+
+        abort(404);
     }
 
     public function create(): View
