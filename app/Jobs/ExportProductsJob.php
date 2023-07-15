@@ -16,16 +16,29 @@ class ExportProductsJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    public function handle()
+    protected function constructFileName()
     {
         $now = Carbon::now('America/Bogota');
-        $fileName = 'products_' . $now->format('Ymd_His') . '.xlsx';
-        $filePath = 'exports/' . $fileName;
+        return 'products_' . $now->format('Ymd_His') . '.xlsx';
+    }
 
+    protected function exportFile($fileName)
+    {
+        $filePath = 'exports/' . $fileName;
         Excel::store(new ProductsExport($fileName), $filePath, 'public');
         Session::put('exported_file', $fileName);
-        // Puedes agregar cualquier lógica adicional aquí, como registros o notificaciones
-        // Elimina el trabajo de la cola después de haber sido procesado
+    }
+
+    public function handle()
+    {
+        $fileName = $this->constructFileName();
+        $this->exportFile($fileName);
+
+        // Elimina el trabajo de la cola
         $this->delete();
     }
+
+
+
+
 }
