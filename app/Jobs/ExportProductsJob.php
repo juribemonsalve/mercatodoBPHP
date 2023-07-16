@@ -8,6 +8,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Session;
@@ -27,7 +28,9 @@ class ExportProductsJob implements ShouldQueue
         $filePath = 'exports/' . $fileName;
         Excel::store(new ProductsExport($fileName), $filePath, 'public');
         Session::put('excel_exported_file', $fileName);
-        Session::put('exported_file_downloaded', false); // Agregar variable de sesión para controlar si el archivo fue descargado
+        Session::put('exported_file_downloaded', false); // v
+
+        Log::info('EXCEL exportado: ' . $fileName);
     }
 
     public function handle()

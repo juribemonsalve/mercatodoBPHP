@@ -14,6 +14,7 @@ use App\Models\Order;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Session;
@@ -72,6 +73,8 @@ class GenerateReportOrderJob implements ShouldQueue
 
         Session::put('pdf_exported_file', $fileName);
         Session::put('pdf_exported_file_downloaded', false); // Agregar variable de sesión para controlar si el archivo fue descargado
+
+        Log::info('PDF exportado: ' . $fileName);
 
         // Redirige a la página index
         return redirect()->route('orders.index');
