@@ -7,60 +7,99 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
 
-## About Laravel
+## Introducción
+Este es un proyecto formativo realizado como parte del Bootcamp PHP en colaboración con la empresa Evertec. El objetivo principal de este proyecto es adquirir nuevos conocimientos sobre el lenguaje PHP a través del framework Laravel.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+# Reto (BOOTCAMP PHP)
 
-## Learning Laravel
+El administrador de MercaTodo necesita un sistema que le permita realizar la venta de sus
+productos de mercadería online. El sistema deberá permitir registrar cada producto así
+como también administrar las cuentas de sus clientes, quienes también deberán
+identificarse para realizar compras de los artículos de mercadería.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+Para el administrador de MercaTodo es sumamente importante que el sistema le permita
+realizar pagos online y generar reportes que sirvan de apoyo para tomar decisiones.
+También es indispensable que el sistema cuente con opciones para administrar productos
+de manera masiva.
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+## Configuraciones a tener en cuenta:
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+   - En el archivo .env de tu proyecto, es importante configurar los siguientes valores:
 
-## Laravel Sponsors
+   - Configuración de la base de datos:
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+Ejemplo:
+makefile
+Copy code
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=mercatodo
+DB_USERNAME=root
+DB_PASSWORD=
 
-### Premium Partners
+   - Configuración de la autenticación con Placetopay:
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
+Configura los datos previamente brindados para la autenticación con Placetopay. Por ejemplo:
 
-## Contributing
+PLACETOPAY_LOGIN=your_login
+PLACETOPAY_TRANKEY=your_trankey
+PLACETOPAY_URL=your_url
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+Configuración de registro de usuarios con Mailtrap:
 
-## Code of Conduct
+   - Utiliza Mailtrap para el registro de usuarios. Por ejemplo:
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+MAIL_MAILER=smtp
+MAIL_HOST=sandbox.smtp.mailtrap.io
+MAIL_PORT=2525
+MAIL_USERNAME=your_username
+MAIL_PASSWORD=your_password
+MAIL_ENCRYPTION=tls
+MAIL_FROM_ADDRESS=uribemonsalvejuan@gmail.com
+MAIL_FROM_NAME="${APP_NAME}"
 
-## Security Vulnerabilities
+## Uso de API REST (POSTMAN)
+Para utilizar la API REST en Postman, realiza la siguiente configuración previa:
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+1. Headers:
+   - Key: Accept
+   - Value: application/json
 
-## License
+Realizar el inicio de sesión:
+- Método: POST
+- URL: http://127.0.0.1:8000/api/auth/login
+- En el body (raw), utiliza los siguientes datos:
+  {
+    "email": "admin@mercatodo.com",
+    "password": "password"
+  }
+- Guarda el token y utilízalo en la sección "Authorization" con el tipo "Bearer Token".
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Listar los Productos:
+- Método: GET
+- URL: http://127.0.0.1:8000/api/products/index
+
+Listar un producto específico:
+- Método: GET
+- URL: http://127.0.0.1:8000/api/product/show/1
+
+Actualizar un producto específico:
+- Método: PUT
+- URL: http://127.0.0.1:8000/api/product/update/1
+- Ejemplo de modificación:
+  {
+    "name": "Auriculares de prueba",
+    "description": "El producto es excelente",
+    "price": 111111,
+    "quantity": 44,
+    "category_id": 1,
+    "status": "active"
+  }
+- 
+Eliminar un producto especiico:
+- Método: GET
+- URL: http://127.0.0.1:8000/api/product/delete/1
+

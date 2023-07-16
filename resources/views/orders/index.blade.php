@@ -17,7 +17,7 @@
 
                     @can('order.report')
                         <div class="py-2 align-middle inline-block w-full sm:px-6 lg:px-8">
-                            <div class="card-header">{{ __('Generar Reporte PDF') }}</div>
+                            <div class="card-header">{{ __('Reporte de Ordenes') }}</div>
 
 
                             <div class="card-body">

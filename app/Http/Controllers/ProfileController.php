@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
 
-class profileController extends controller
+class ProfileController extends controller
 {
     /**
      * Display the user's profile form.

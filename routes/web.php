@@ -6,7 +6,7 @@ use App\Http\Controllers\productController;
 use App\Http\Controllers\profileController;
 use App\Http\Controllers\userController;
 use App\Http\Livewire\Shop\Cart\paymentComponent;
-
+use Illuminate\Http\Request;
 use App\Http\Livewire\Shop\indexComponent;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Exports\ExportProductController;
@@ -21,6 +21,8 @@ use App\Http\Controllers\Imports\ImportProductController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+
+
 Route::get('/', IndexComponent::class)->name('inicio');
 Route::get('/cart', PaymentComponent::class)->name('cart');
 Route::get('/login', function () {
