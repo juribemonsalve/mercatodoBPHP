@@ -20,7 +20,7 @@ class ProductsImport implements ToCollection, WithChunkReading, WithValidation, 
     use RemembersChunkOffset;
     use SkipsFailures;
 
-    public function collection(Collection $rows)
+    public function collection(Collection $rows): void
     {
         $chunkOffset = $this->getChunkOffset();
 

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Exports\ProductsExport;
 use App\Imports\ProductsImport;
@@ -49,17 +50,23 @@ class ProductController extends Controller
         return $product;
     }
 
-    public function update(ProductRequest $request, $id): Product
+    public function update(ProductRequest $request, $id): JsonResponse
     {
         $product = Product::findOrFail($id);
         $product->update($request->all());
-        return $product;
+
+        return response()->json([
+            'message' => 'El producto se ha actualizado',
+        ]);
     }
 
-    public function destroy($id): string
+    public function destroy($id): JsonResponse
     {
         $product = Product::findOrFail($id);
         $product->delete();
-        return 'Product deleted successfully';
+
+        return response()->json([
+            'message' => 'Producto eliminado correctamente',
+        ]);
     }
 }

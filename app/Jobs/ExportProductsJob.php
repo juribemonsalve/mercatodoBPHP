@@ -23,7 +23,7 @@ class ExportProductsJob implements ShouldQueue
         return 'products_' . $now->format('Ymd_His') . '.xlsx';
     }
 
-    protected function exportFile($fileName)
+    protected function exportFile($fileName): void
     {
         $filePath = 'exports/' . $fileName;
         Excel::store(new ProductsExport($fileName), $filePath, 'public');
@@ -33,7 +33,7 @@ class ExportProductsJob implements ShouldQueue
         Log::info('EXCEL exportado: ' . $fileName);
     }
 
-    public function handle()
+    public function handle(): void
     {
         $fileName = $this->constructFileName();
         $this->exportFile($fileName);

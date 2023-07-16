@@ -6,13 +6,15 @@ use App\ViewModels\OrderViewModel;
 use Illuminate\Contracts\View\View;
 use App\Models\Order;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Jobs\GenerateReportOrderJob;
 use Illuminate\Support\Facades\Queue;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
-
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
+use Symfony\Component\HttpFoundation\StreamedResponse;
 class OrderController extends Controller
 {
     public function index(): View
@@ -20,7 +22,7 @@ class OrderController extends Controller
         return view('orders.index', new OrderViewModel());
     }
 
-    public function report(Request $request)
+    public function report(Request $request): RedirectResponse
     {
         $startDate = $request->input('start_date');
         $endDate = $request->input('end_date');
@@ -28,14 +30,14 @@ class OrderController extends Controller
         $job = new GenerateReportOrderJob($startDate, $endDate);
         Queue::push($job);
 
-        return redirect()->back(); // Redirige a la página anterior después de iniciar el trabajo en segundo plan
+        return redirect()->back();
     }
 
-    public function downloadExport($fileName)
+    public function downloadExport($fileName): StreamedResponse
     {
         $filePath = 'reports/' . $fileName;
         if (Storage::disk('public')->exists($filePath)) {
-            // Marcar el archivo como descargado
+
             Session::put('pdf_exported_file_downloaded', true);
 
             return Storage::disk('public')->download($filePath);

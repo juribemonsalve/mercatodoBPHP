@@ -20,7 +20,7 @@ use Illuminate\Support\Str;
 class ProductRepository
 {
 
-    public function productsImport(Request $request): Array
+    public function productsImport(Request $request): array
     {
         $file = $request->file('document');
         $import = new ProductsImport();

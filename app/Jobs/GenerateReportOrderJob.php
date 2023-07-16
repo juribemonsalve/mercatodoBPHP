@@ -6,6 +6,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use App\ViewModels\OrderViewModel;
@@ -13,6 +14,7 @@ use Illuminate\Contracts\View\View;
 use App\Models\Order;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
@@ -31,14 +33,14 @@ class GenerateReportOrderJob implements ShouldQueue
         $this->startDate = $startDate;
         $this->endDate = $endDate;
     }
-    protected function constructFileName()
+    protected function constructFileName(): string
     {
         $now = Carbon::now('America/Bogota');
         return 'orders_report_' . $now->format('Ymd_His') . '.pdf';
     }
 
 
-    public function handle()
+    public function handle(): void
     {
         $startDate = $this->startDate;
         $endDate = $this->endDate;
@@ -48,7 +50,7 @@ class GenerateReportOrderJob implements ShouldQueue
         $this->savePDF($pdf);
     }
 
-    protected function getOrders($startDate, $endDate)
+    protected function getOrders($startDate, $endDate): Collection
     {
         return Order::where(function ($query) use ($startDate, $endDate) {
             $query->whereBetween(DB::raw('DATE(created_at)'), [$startDate, $endDate])
@@ -60,12 +62,12 @@ class GenerateReportOrderJob implements ShouldQueue
         ->get();
     }
 
-    protected function generatePDF($orders)
+    protected function generatePDF($orders): \Barryvdh\DomPDF\PDF
     {
         return PDF::loadView('orders.report', compact('orders'));
     }
 
-    protected function savePDF($pdf)
+    protected function savePDF($pdf): RedirectResponse
     {
         $fileName = $this->constructFileName();
         $filePath = 'reports/' . $fileName;

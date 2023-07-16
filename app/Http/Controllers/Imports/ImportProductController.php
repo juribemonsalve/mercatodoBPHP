@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Imports;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ImportFileRequest;
 use App\Repositories\product\ProductRepository;
-
+use Illuminate\Http\RedirectResponse;
 class ImportProductController extends Controller
 {
     protected $productRepo;
@@ -15,7 +15,7 @@ class ImportProductController extends Controller
         $this->productRepo = $productRepository;
     }
 
-    public function import(ImportFileRequest $request)
+    public function import(ImportFileRequest $request): RedirectResponse
     {
         //$this->authorize('products.import');
 

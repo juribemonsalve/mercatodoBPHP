@@ -37,7 +37,7 @@ class ProductController extends controller
     }
 
 
-    public function downloadExport($fileName)
+    public function downloadExport($fileName): StreamedResponse
     {
         $filePath = 'exports/' . $fileName;
 
