@@ -26,7 +26,8 @@ class ExportProductsJob implements ShouldQueue
     {
         $filePath = 'exports/' . $fileName;
         Excel::store(new ProductsExport($fileName), $filePath, 'public');
-        Session::put('exported_file', $fileName);
+        Session::put('excel_exported_file', $fileName);
+        Session::put('exported_file_downloaded', false); // Agregar variable de sesión para controlar si el archivo fue descargado
     }
 
     public function handle()
@@ -37,8 +38,6 @@ class ExportProductsJob implements ShouldQueue
         // Elimina el trabajo de la cola
         $this->delete();
     }
-
-
 
 
 }

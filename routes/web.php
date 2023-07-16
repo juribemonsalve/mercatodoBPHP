@@ -48,6 +48,12 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::get('/products/export/{fileName}', [ProductController::class, 'downloadExport'])->name('products.downloadExport');
 
+    Route::get('/orders/reportPDF', [OrderController::class, 'report'])->name('orders.report');
+
+    Route::get('/orders/report', [OrderController::class, 'report'])->name('orders.report');
+    Route::get('/orders/downloadExport/{fileName}', [OrderController::class, 'downloadExport'])->name('orders.downloadExport');
+
+
 
     Route::post('products/import/', [ImportProductController::class, 'import'])->name('products.import');
 

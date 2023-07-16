@@ -25,6 +25,8 @@ class RoleSeeder extends Seeder
         Permission::create(['name'=>'category.index'])->syncRoles([$admin]);
         Permission::create(['name'=>'product.index'])->syncRoles([$admin]);
 
+        Permission::create(['name'=>'order.report'])->syncRoles([$admin]);
+
         Permission::create(['name'=>'dashboard'])->syncRoles([$client]);
     }
 }

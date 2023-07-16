@@ -35,11 +35,16 @@ class ProductController extends controller
             ->paginate(10);
         return view('product.index', compact('products', 'categories', 'texto'));
     }
+
+
     public function downloadExport($fileName)
     {
         $filePath = 'exports/' . $fileName;
 
         if (Storage::disk('public')->exists($filePath)) {
+            // Marcar el archivo como descargado
+            Session::put('exported_file_downloaded', true);
+
             return Storage::disk('public')->download($filePath);
         }
 

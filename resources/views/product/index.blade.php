@@ -66,14 +66,15 @@
                                             </form>
 
                                             @php
-                                                $exportedFile = Session::get('exported_file');
+                                                $exportedFile = Session::get('excel_exported_file');
+                                                $exportedFileDownloaded = Session::get('exported_file_downloaded');
                                             @endphp
 
-                                            @if ($exportedFile)
+                                            @if ($exportedFile && !$exportedFileDownloaded)
                                                 <form action="{{ route('products.downloadExport', ['fileName' => $exportedFile]) }}" method="get" class="px-2">
                                                     <button class="flex items-center px-1 py-2 text-white bg-green-300 rounded-md shadow-md hover:bg-green-500" type="submit">
                                                         <span class="mr-2 fa-solid fa-download"></span>
-                                                        Descargar último archivo exportado
+                                                        Descargar último Exporte
                                                     </button>
                                                 </form>
                                             @endif
