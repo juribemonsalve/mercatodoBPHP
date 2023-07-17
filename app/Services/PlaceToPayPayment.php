@@ -93,34 +93,34 @@ class PlaceToPayPayment extends PaymentBase
 
     public function getRequestInformation(): View
     {
-        $order = OrderGetLastAction::execute();
+            $order = OrderGetLastAction::execute();
 
-        $result = Http::post(
-            config('placetopay.url') . "/api/session/$order->request_id",
-            [
-                'auth' => $this->getAuth(),
-            ]
-        );
-        if ($result->ok()) {
-            $status = $result->json()['status']['status'];
-            $order->status = $status; // Asignar el valor de cadena correctamente
+            $result = Http::post(
+                config('placetopay.url') . "/api/session/$order->request_id",
+                [
+                    'auth' => $this->getAuth(),
+                ]
+            );
+            if ($result->ok()) {
+                $status = $result->json()['status']['status'];
+                $order->status = $status;
 
-            $order->status = OrderStatus::from($status); // Asignar el valor del enum correctamente
-            if ($order->status == OrderStatus::APPROVED()) {
-                $order->completed();
-            } elseif ($order->status == OrderStatus::REJECTED()) {
-                $order->canceled();
-            } elseif ($order->status == OrderStatus::PENDING()) {
-                $order->pending();
+                $order->status = OrderStatus::from($status);
+                if ($order->status == OrderStatus::APPROVED()) {
+                    $order->completed();
+                } elseif ($order->status == OrderStatus::REJECTED()) {
+                    $order->canceled();
+                } elseif ($order->status == OrderStatus::PENDING()) {
+                    $order->pending();
+                }
+
+
+                return view('payments.success', [
+                    'processor' => $order->provider,
+                    'status' => $order->status,
+                ]);
             }
 
-
-            return view('payments.success', [
-                'processor' => $order->provider,
-                'status' => $order->status,
-            ]);
-        }
-
-        throw  new \Exception($result->body());
+            throw  new \Exception($result->body());
     }
 }
