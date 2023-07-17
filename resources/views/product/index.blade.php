@@ -35,6 +35,71 @@
                         <div class="py-2 align-middle inline-block w-full sm:px-6 lg:px-8">
                             <div class="shadow overflow-hidden border-b border-orange-400 sm:rounded-lg">
                                 <div class="table-responsive">
+
+                                    <div class="flex">
+                                      <div class="w-1/2">
+                                        <div class="flex">
+                                            <form action="{{ route('products.import') }}" method="post" enctype="multipart/form-data" class="flex">
+                                                @csrf
+                                                <div class="flex flex-wrap">
+                                                    <div class="px-4">
+                                                        <input type="file" name="document" class="border border-gray-300 rounded-l px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                                    </div>
+                                                    <div class="px-4 py-1">
+                                                        <button class="flex items-center px-4 py-2 text-white bg-blue-600 rounded-l-none rounded-r-md shadow-md hover:bg-blue-700" type="submit">
+                                                            <span class="mr-2 fa-solid fa-circle-plus"></span>
+                                                            Importar
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+
+
+                                        <div class="flex justify-start px-3">
+                                            <form action="{{ route('products.export') }}" method="get" enctype="multipart/form-data" class="px-2">
+                                                @csrf
+                                                <button class="flex items-center px-4 py-2 text-white bg-green-500 rounded-md shadow-md hover:bg-green-600" type="submit">
+                                                    <span class="mr-2 fa-solid fa-file-excel"></span>
+                                                    Exportar
+                                                </button>
+                                            </form>
+
+                                            @php
+                                                $exportedFile = Session::get('excel_exported_file');
+                                                $exportedFileDownloaded = Session::get('exported_file_downloaded');
+                                            @endphp
+
+                                            @if ($exportedFile && !$exportedFileDownloaded)
+                                                <form action="{{ route('products.downloadExport', ['fileName' => $exportedFile]) }}" method="get" class="px-2">
+                                                    <button class="flex items-center px-1 py-2 text-white bg-green-300 rounded-md shadow-md hover:bg-green-500" type="submit">
+                                                        <span class="mr-2 fa-solid fa-download"></span>
+                                                        Descargar último Exporte
+                                                    </button>
+                                                </form>
+                                            @endif
+
+                                        </div>
+
+                                      </div>
+                                    </div>
+                                    @if(session('message'))
+                                            <div class="bg-green-400 text-white px-2 py-2 mt-2">
+                                                {{ session('message') }}
+                                            </div>
+                                    @endif
+
+                                    @if ($errors->any())
+                                            <div class="bg-red-400 text-white px-2 py-2">
+                                                <ul>
+                                                    @foreach ($errors->all() as $error)
+                                                        <li>{{ $error }}</li>
+                                                    @endforeach
+                                                </ul>
+                                            </div>
+                                    @endif
+
+
                                     <div class="flex items-center justify-end mb-4">
                                         <a href="{{ url('/product/create') }}" class="px-2 py-2 font-bold flex items-center text-white bg-gray-800 rounded-md shadow-md hover:bg-gray-700">
                                             <i class="fa-solid fa-circle-plus"></i> Añadir Producto
@@ -122,4 +187,6 @@
                         }
                     });
                 </script>
+
+
     @endsection

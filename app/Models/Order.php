@@ -4,7 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+
 
 class Order extends Model
 {
@@ -54,6 +56,13 @@ class Order extends Model
         ]);
     }
 
+    public function pending(): void
+    {
+        $this->update([
+            'status' => 'PENDING',
+        ]);
+    }
+
     public function canceled(): void
     {
         $this->update([
@@ -65,6 +74,7 @@ class Order extends Model
     {
         return $this->belongsTo(Product::class);
     }
+
 
     public function orderItems()
     {

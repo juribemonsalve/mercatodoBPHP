@@ -10,7 +10,7 @@ use Illuminate\Contracts\Cache\Repository;
 
 class IndexComponent extends Component
 {
-    public function render(Request $request, Repository $cache):View
+    public function render(Request $request): View
     {
         $search = $request->input('search');
         $products = Product::where('status', 'active')

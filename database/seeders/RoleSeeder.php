@@ -8,8 +8,12 @@ use Spatie\Permission\Models\Role;
 
 class RoleSeeder extends Seeder
 {
-
-    public function run(): void
+    /**
+     * Run the database seeds.
+     *
+     * @return void
+     */
+    public function run()
     {
         /*Admin => todo
         standar => dashboard
@@ -20,6 +24,8 @@ class RoleSeeder extends Seeder
         Permission::create(['name'=>'user.index'])->syncRoles([$admin]);
         Permission::create(['name'=>'category.index'])->syncRoles([$admin]);
         Permission::create(['name'=>'product.index'])->syncRoles([$admin]);
+
+        Permission::create(['name'=>'order.report'])->syncRoles([$admin]);
 
         Permission::create(['name'=>'dashboard'])->syncRoles([$client]);
     }
