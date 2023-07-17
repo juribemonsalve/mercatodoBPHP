@@ -17,7 +17,7 @@ class ExportProductsJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    protected function constructFileName()
+    public function constructFileName()
     {
         $now = Carbon::now('America/Bogota');
         return 'products_' . $now->format('Ymd_His') . '.xlsx';

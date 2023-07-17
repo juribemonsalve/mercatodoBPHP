@@ -22,6 +22,8 @@ class ExportProductController extends Controller
         ExportProductsJob::dispatch();
 
         return redirect()->back()->with('success', 'Exportación enviada.');
+
+
     }
 
 

@@ -103,3 +103,6 @@ Eliminar un producto especiico:
 - Método: GET
 - URL: http://127.0.0.1:8000/api/product/delete/1
 
+
+Ejecutar Test existente:
+- php artisan test --testsuite=Feature
