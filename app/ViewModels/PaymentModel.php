@@ -19,8 +19,6 @@ class PaymentModel extends ViewModel
         return Product::query()->find($this->product_id);
     }
 
-
-
     public function paymentProcessors(): array
     {
         return [

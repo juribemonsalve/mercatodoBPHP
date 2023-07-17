@@ -1,25 +1,14 @@
 <?php
 
 namespace App\Repositories\product;
-use App\Exports\ProductsExport;
-
 
 use App\Imports\ProductsImport;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
-use PhpParser\Node\Expr\Array_;
-use Symfony\Component\HttpFoundation\BinaryFileResponse;
-use Illuminate\Http\UploadedFile;
-use Illuminate\Support\Facades\Storage;
-use Maatwebsite\Excel\Facades\Excel;
-
-use Illuminate\Support\Str;
 
 class ProductRepository
 {
-
     public function productsImport(Request $request): array
     {
         $file = $request->file('document');

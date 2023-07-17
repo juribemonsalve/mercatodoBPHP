@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Jobs;
 
 use App\Exports\ProductsExport;
@@ -9,13 +10,15 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Storage;
-use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Session;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ExportProductsJob implements ShouldQueue
 {
-    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
+    use Dispatchable;
+    use InteractsWithQueue;
+    use Queueable;
+    use SerializesModels;
 
     public function constructFileName()
     {
@@ -41,6 +44,4 @@ class ExportProductsJob implements ShouldQueue
         // Elimina el trabajo de la cola
         $this->delete();
     }
-
-
 }
