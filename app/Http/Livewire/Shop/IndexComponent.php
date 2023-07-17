@@ -6,7 +6,6 @@ use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 use Livewire\Component;
-use Illuminate\Contracts\Cache\Repository;
 
 class IndexComponent extends Component
 {
