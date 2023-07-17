@@ -86,8 +86,6 @@
                         </x-nav-link>
                     </div>
 
-
-
                 @endif
 
                                 <!-- Navigation Links -->

@@ -2,15 +2,21 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
 use App\Http\Requests\ProductRequest;
 use App\Models\Category;
 use App\Models\Product;
-use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\DB;
-use Illuminate\View\View;
 use Spatie\Permission\Models\Role;
+use App\Http\Requests\DatePaymentRequest;
+
+use Illuminate\Http\RedirectResponse;
+use Illuminate\View\View;
+
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Storage;
+use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class ProductController extends controller
 {
@@ -28,6 +34,21 @@ class ProductController extends controller
             ->orderBy('id', 'asc')
             ->paginate(10);
         return view('product.index', compact('products', 'categories', 'texto'));
+    }
+
+
+    public function downloadExport($fileName): StreamedResponse
+    {
+        $filePath = 'exports/' . $fileName;
+
+        if (Storage::disk('public')->exists($filePath)) {
+            // Marcar el archivo como descargado
+            Session::put('exported_file_downloaded', true);
+
+            return Storage::disk('public')->download($filePath);
+        }
+
+        abort(404);
     }
 
     public function create(): View

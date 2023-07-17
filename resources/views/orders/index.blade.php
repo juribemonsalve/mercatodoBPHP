@@ -12,6 +12,56 @@
                         </div>
                     </div>
 
+
+
+
+                    @can('order.report')
+                        <div class="py-2 align-middle inline-block w-full sm:px-6 lg:px-8">
+                            <div class="card-header">{{ __('Reporte de Ordenes') }}</div>
+
+
+                            <div class="card-body">
+                                <form action="{{ route('orders.report') }}" method="GET">
+                                    @csrf
+
+                                    <div class="flex items-center mb-4">
+                                        <div class="mr-4">
+                                            <label for="start_date" class="block font-medium text-sm text-gray-700">{{ __('Fecha de inicio') }}</label>
+                                            <input type="date" name="start_date" id="start_date" class="bg-gray-200 rounded-lg p-2" required>
+                                        </div>
+
+                                        <div class="mr-4">
+                                            <label for="end_date" class="block font-medium text-sm text-gray-700">{{ __('Fecha de fin') }}</label>
+                                            <input type="date" name="end_date" id="end_date" class="bg-gray-200 rounded-lg p-2" required>
+                                        </div>
+
+                                        <button type="submit" class="bg-orange-600 hover:bg-orange-400 text-white font-bold py-2 px-2 rounded">
+                                            <i class="fas fa-file-pdf"></i> {{ __('Generar PDF') }}
+                                        </button>
+                                    </div>
+                                </form>
+
+                                @php
+                                    $exportedFile = Session::get('pdf_exported_file');
+                                    $exportedFileDownloaded = Session::get('pdf_exported_file_downloaded');
+                                @endphp
+
+                                @if ($exportedFile && !$exportedFileDownloaded)
+                                    <form action="{{ route('orders.downloadExport', ['fileName' => $exportedFile]) }}" method="get" class="px-2">
+                                        @csrf
+                                        <button class="flex items-center px-1 py-2 text-white bg-orange-400 rounded-md shadow-md hover:bg-orange-600" type="submit">
+                                            <span class="mr-2 fa-solid fa-download"></span>
+                                            Descargar último Reporte
+                                        </button>
+                                    </form>
+                                @endif
+
+                            </div>
+                        </div>
+                    @endcan
+
+
+
                     <div class="container-fluid">
                         <div class="py-2 align-middle inline-block w-full sm:px-6 lg:px-8">
                             <div class="shadow overflow-hidden border-b border-orange-400 sm:rounded-lg">

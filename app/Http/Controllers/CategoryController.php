@@ -6,10 +6,11 @@ use App\Http\Requests\CategoryRequest;
 use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Database\QueryException;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\View\View;
 use Spatie\Permission\Models\Role;
+use Illuminate\View\View;
+use Illuminate\Http\RedirectResponse;
+
 
 class CategoryController extends Controller
 {
