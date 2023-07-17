@@ -4,13 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\UserRequest;
 use App\Models\User;
-use Illuminate\Http\Request;
-use Spatie\Permission\Models\Role;
-
-
 use Illuminate\Http\RedirectResponse;
-use Illuminate\View\View;
+use Illuminate\Http\Request;
 
+use Illuminate\View\View;
+use Spatie\Permission\Models\Role;
 
 class UserController extends controller
 {

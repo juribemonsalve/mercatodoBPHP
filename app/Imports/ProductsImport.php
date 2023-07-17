@@ -4,7 +4,6 @@ namespace App\Imports;
 
 use App\Models\Product;
 use Illuminate\Support\Collection;
-use Illuminate\Validation\Rule;
 use Maatwebsite\Excel\Concerns\Importable;
 use Maatwebsite\Excel\Concerns\RemembersChunkOffset;
 use Maatwebsite\Excel\Concerns\SkipsEmptyRows;
@@ -24,7 +23,6 @@ class ProductsImport implements ToCollection, WithChunkReading, WithValidation, 
     {
         $chunkOffset = $this->getChunkOffset();
 
-
         foreach ($rows as $row) {
             $product = new Product([
                 'id' => $row['id'],
@@ -42,7 +40,6 @@ class ProductsImport implements ToCollection, WithChunkReading, WithValidation, 
 
             if ($productExist === null) {
                 $product->save();
-
             } else {
                 $productExist->name = $row['name'];
                 $productExist->description = $row['description'];

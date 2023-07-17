@@ -2,28 +2,27 @@
 
 namespace App\Jobs;
 
+use App\Models\Order;
+use Barryvdh\DomPDF\Facade\Pdf;
+use Carbon\Carbon;
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
-use App\ViewModels\OrderViewModel;
-use Illuminate\Contracts\View\View;
-use App\Models\Order;
-use Barryvdh\DomPDF\Facade\Pdf;
-use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Storage;
-use Carbon\Carbon;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Storage;
 
 class GenerateReportOrderJob implements ShouldQueue
 {
-    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
+    use Dispatchable;
+    use InteractsWithQueue;
+    use Queueable;
+    use SerializesModels;
 
     public $startDate;
     public $endDate;
@@ -38,7 +37,6 @@ class GenerateReportOrderJob implements ShouldQueue
         $now = Carbon::now('America/Bogota');
         return 'orders_report_' . $now->format('Ymd_His') . '.pdf';
     }
-
 
     public function handle(): void
     {
@@ -81,5 +79,4 @@ class GenerateReportOrderJob implements ShouldQueue
         // Redirige a la página index
         return redirect()->route('orders.index');
     }
-
 }

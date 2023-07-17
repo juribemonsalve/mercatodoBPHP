@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\ImportFileRequest;
 use App\Repositories\product\ProductRepository;
 use Illuminate\Http\RedirectResponse;
+
 class ImportProductController extends Controller
 {
     protected $productRepo;

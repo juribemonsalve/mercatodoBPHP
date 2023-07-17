@@ -2,18 +2,17 @@
 
 namespace App\Http\Livewire\Shop\Cart;
 
+use App\Http\Requests\DatePaymentRequest;
+use App\Models\Order;
+use App\Models\Product;
 use App\Services\PaymentBase;
 use App\Services\PaymentFactory;
 use App\Services\PlaceToPayPayment;
-use App\Models\Product;
-use App\Models\Order;
 use App\ViewModels\PaymentModel;
-use Illuminate\Http\Request;
-use Illuminate\View\View;
-use Livewire\Component;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\View\View;
 
-use App\Http\Requests\DatePaymentRequest;
+use Livewire\Component;
 
 class PaymentComponent extends Component
 {
@@ -28,7 +27,6 @@ class PaymentComponent extends Component
         }
         $this->refreshTotal(); // Actualizar el valor total
 
-
         $paymentModel = new PaymentModel($cart_items);
         $paymentProcessors = $paymentModel->paymentProcessors();
         $orders = Order::with('product')->get();
@@ -38,7 +36,6 @@ class PaymentComponent extends Component
             ->section('content');
     }
 
-
     public function refreshTotal(): float
     {
         $cart_items = \Cart::getContent();
@@ -47,7 +44,6 @@ class PaymentComponent extends Component
             return $product->price * $item->quantity;
         });
         return $this->total;
-
     }
 
     public function update_quantity($itemId, $quantity): void
@@ -60,7 +56,6 @@ class PaymentComponent extends Component
         ]);
 
         $this->refreshTotal();
-
     }
 
     public function delete_item($itemId)
